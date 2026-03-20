@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -14,8 +15,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <style>
   :root {
-    --bg: #f4f6fb; --surface: #fff; --surface2: #eef1f8; --border: #dde2ef;
-    --accent: #e8590c; --accent2: #f97316; --text: #1a1d2e; --muted: #7a82a0;
+    --bg: #f4f6fb; --surface: #fff; --surface2: #eef1f8; --border: #c8d0e4;
+    --accent: #e8590c; --accent2: #f97316; --text: #1a1d2e; --muted: #5a6380;
     --green: #16a34a; --red: #dc2626; --gold: #d97706; --radius: 12px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
@@ -29,7 +30,7 @@
 .app-title span { color: var(–accent); }
 .header-right { display: flex; align-items: center; gap: 6px; }
 .date-badge { font-family: ‘DM Mono’, monospace; font-size: 11px; color: var(–muted); background: var(–surface); padding: 4px 10px; border-radius: 20px; border: 1px solid var(–border); }
-.sync-btn { background: none; border: 1px solid var(–border); border-radius: 20px; padding: 4px 10px; font-size: 11px; font-weight: 600; color: var(–muted); cursor: pointer; display: flex; align-items: center; gap: 4px; transition: all 0.15s; }
+.sync-btn { background: none; border: 1px solid var(–border); border-radius: 20px; padding: 4px 10px; font-size: 11px; font-weight: 700; color: #3a4260; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: all 0.15s; }
 .sync-btn:hover { border-color: var(–accent); color: var(–accent); }
 .sync-btn.syncing { color: var(–accent); border-color: var(–accent); }
 .spin { display: inline-block; }
@@ -42,7 +43,7 @@
 
 /* Tabs */
 .tabs { display: flex; gap: 4px; padding: 10px 20px; border-bottom: 1px solid var(–border); background: var(–bg); }
-.tab { flex: 1; padding: 8px; border-radius: 8px; border: 1px solid var(–border); background: var(–surface); color: var(–muted); font-size: 13px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+.tab { flex: 1; padding: 8px; border-radius: 8px; border: 1px solid var(–border); background: var(–surface); color: #3a4260; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
 .tab.active { background: var(–accent); border-color: var(–accent); color: #fff; }
 
 /* Panel */
@@ -76,7 +77,7 @@
 
 /* Select actions */
 .select-actions { display: flex; gap: 6px; margin-bottom: 10px; }
-.select-btn { flex: 1; padding: 8px 4px; background: var(–surface); border: 1px solid var(–border); border-radius: 8px; color: var(–muted); font-size: 11px; font-weight: 600; cursor: pointer; transition: all 0.15s; }
+.select-btn { flex: 1; padding: 8px 4px; background: var(–surface); border: 1px solid var(–border); border-radius: 8px; color: #3a4260; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
 .select-btn:hover { color: var(–text); border-color: var(–accent); }
 
 /* Search */
@@ -88,11 +89,11 @@
 .stop-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
 .stop-card { background: var(–surface); border: 1px solid var(–border); border-radius: var(–radius); padding: 12px 14px; display: flex; align-items: flex-start; gap: 12px; cursor: pointer; transition: all 0.15s; border-left: 3px solid transparent; user-select: none; }
 .stop-card:active { transform: scale(0.985); }
-.stop-card.selected { border-color: var(–accent); background: rgba(232,89,12,0.05); }
+.stop-card.selected { border-color: var(–accent); background: rgba(232,89,12,0.12); box-shadow: 0 0 0 1px var(–accent); }
 .stop-card.priority { border-left-color: var(–gold); }
 .stop-card.selected.priority { border-color: var(–accent); border-left-color: var(–accent); }
-.stop-check { width: 22px; height: 22px; border-radius: 50%; border: 2px solid var(–border); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; font-size: 12px; margin-top: 1px; }
-.stop-card.selected .stop-check { background: var(–accent); border-color: var(–accent); color: #fff; }
+.stop-check { width: 22px; height: 22px; border-radius: 50%; border: 2px solid #b0bad0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; font-size: 12px; margin-top: 1px; }
+.stop-card.selected .stop-check { background: var(–accent); border-color: var(–accent); color: #fff; font-size: 13px; font-weight: 800; }
 .stop-body { flex: 1; min-width: 0; }
 .stop-name-row { display: flex; align-items: center; gap: 5px; margin-bottom: 2px; }
 .stop-name { font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -104,7 +105,7 @@
 .stop-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
 .contact-btns { display: flex; gap: 4px; }
 .icon-btn { font-size: 18px; background: none; border: none; cursor: pointer; padding: 2px; line-height: 1; text-decoration: none; display: inline-block; }
-.visit-btn { font-size: 11px; padding: 4px 10px; border-radius: 20px; border: 1px solid var(–border); background: var(–surface2); color: var(–muted); cursor: pointer; font-weight: 600; white-space: nowrap; transition: all 0.15s; }
+.visit-btn { font-size: 11px; padding: 4px 10px; border-radius: 20px; border: 1px solid #b0bad0; background: var(–surface2); color: #3a4260; cursor: pointer; font-weight: 700; white-space: nowrap; transition: all 0.15s; }
 .visit-btn:hover { border-color: var(–green); color: var(–green); }
 
 /* Tags */
@@ -165,7 +166,7 @@
 .saved-contact { font-size: 11px; color: var(–muted); margin-bottom: 2px; }
 .saved-notes { font-size: 11px; color: var(–accent); font-style: italic; }
 .saved-btns { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
-.edit-btn { background: var(–surface2); border: 1px solid var(–border); border-radius: 7px; padding: 4px 10px; font-size: 12px; font-weight: 600; color: var(–muted); cursor: pointer; transition: all 0.15s; }
+.edit-btn { background: var(–surface2); border: 1px solid #b0bad0; border-radius: 7px; padding: 4px 10px; font-size: 12px; font-weight: 700; color: #3a4260; cursor: pointer; transition: all 0.15s; }
 .edit-btn:hover { border-color: var(–accent); color: var(–accent); }
 .delete-btn { background: none; border: none; color: var(–muted); cursor: pointer; font-size: 20px; padding: 2px 4px; line-height: 1; transition: color 0.15s; }
 .delete-btn:hover { color: var(–red); }
