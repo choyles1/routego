@@ -200,9 +200,12 @@
 
   <div id="setupBanner" class="setup-banner" style="display:none;">
     <div class="setup-banner-title">☁️ Connect Cloud Sync</div>
-    <div class="setup-banner-sub">Enter your JSONBin API key to sync locations across both phones. Get a free key at <strong>jsonbin.io</strong> → Sign Up → API Keys.</div>
+    <div class="setup-banner-sub">Enter your JSONBin API key. On your <strong>first phone</strong>, leave Bin ID blank — it will be created. On your <strong>second phone</strong>, enter both the API key and the Bin ID shown in the app after connecting the first phone.</div>
+    <div class="setup-row" style="margin-bottom:8px;">
+      <input type="text" class="setup-input" id="apiKeyInput" placeholder="API Key: $2b$10$...">
+    </div>
     <div class="setup-row">
-      <input type="text" class="setup-input" id="apiKeyInput" placeholder="$2b$10$...your API key...">
+      <input type="text" class="setup-input" id="binIdInput" placeholder="Bin ID (2nd phone only): 6...">
       <button class="setup-save-btn" onclick="saveApiKey()">Connect</button>
     </div>
   </div>
@@ -450,6 +453,13 @@
       setSyncStatus('Not connected — enter API key above');
     } else {
       banner.style.display = 'none';
+      updateBinDisplay();
+    }
+  }
+
+  function updateBinDisplay() {
+    if (binId) {
+      setSyncStatus('Bin ID: ' + binId + ' (use on 2nd phone)');
     }
   }
 
@@ -458,12 +468,17 @@
     if (!key) { showToast('Please enter an API key', true); return; }
     apiKey = key;
     localStorage.setItem('rg_apikey', apiKey);
+    const manualBinId = document.getElementById('binIdInput').value.trim();
+    if (manualBinId) {
+      binId = manualBinId;
+      localStorage.setItem('rg_binid', binId);
+    }
     document.getElementById('setupBanner').style.display = 'none';
-    showToast('API key saved! Syncing...');
-    // Try to pull first (in case other phone already has data)
+    showToast('Connecting...');
     const pulled = await pullCloud(true);
-    if (!pulled) await pushCloud(); // if no bin yet, create one
+    if (!pulled) await pushCloud();
     checkSetup();
+    updateBinDisplay();
   }
 
   async function manualSync() {
