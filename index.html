@@ -105,8 +105,6 @@
 .stop-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
 .contact-btns { display: flex; gap: 4px; }
 .icon-btn { font-size: 18px; background: none; border: none; cursor: pointer; padding: 2px; line-height: 1; text-decoration: none; display: inline-block; }
-.visit-btn { font-size: 11px; padding: 4px 10px; border-radius: 20px; border: 1px solid #b0bad0; background: var(–surface2); color: #3a4260; cursor: pointer; font-weight: 700; white-space: nowrap; transition: all 0.15s; }
-.visit-btn:hover { border-color: var(–green); color: var(–green); }
 
 /* Tags */
 .tag { font-size: 10px; padding: 2px 8px; border-radius: 20px; border: 1px solid; flex-shrink: 0; }
@@ -119,6 +117,10 @@
 .go-btn { width: 100%; padding: 18px; background: var(–accent); color: #fff; border: none; border-radius: var(–radius); font-size: 16px; font-weight: 800; cursor: pointer; letter-spacing: 0.5px; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 10px; }
 .go-btn:active { transform: scale(0.98); background: var(–accent2); }
 .go-btn:disabled { background: var(–surface2); color: var(–muted); cursor: not-allowed; transform: none; border: 1px solid var(–border); }
+.fab { position: fixed; bottom: 24px; right: 20px; z-index: 150; display: flex; align-items: center; gap: 8px; padding: 14px 20px; background: var(–accent); color: #fff; border: none; border-radius: 50px; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 4px 20px rgba(232,89,12,0.45); transition: all 0.2s cubic-bezier(.34,1.56,.64,1); letter-spacing: 0.3px; }
+.fab:active { transform: scale(0.95); background: var(–accent2); }
+.fab.hidden { transform: translateY(100px); opacity: 0; pointer-events: none; }
+.fab-badge { background: #fff; color: var(–accent); border-radius: 50%; width: 20px; height: 20px; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
 /* Optimize tip */
 .optimize-tip { display: flex; align-items: flex-start; gap: 10px; background: #fffbeb; border: 1px solid #fcd34d; border-radius: var(–radius); padding: 12px 14px; margin-top: 10px; }
@@ -334,7 +336,7 @@ function EditModal({ loc, onSave, onClose }) {
 }
 
 // ── Stop Card (Today) ────────────────────────────────────────────────────────
-function StopCard({ loc, selected, onToggle, onVisit }) {
+function StopCard({ loc, selected, onToggle }) {
   const visitLine = loc.lastVisit
     ? `Visited ${fmtDate(loc.lastVisit)}${loc.visitCount > 1 ? ` · ${loc.visitCount}x` : ''}`
     : 'Never visited';
@@ -365,7 +367,7 @@ function StopCard({ loc, selected, onToggle, onVisit }) {
             <a className="icon-btn" href={`sms:${cleanPhone(loc.phone)}`} onClick={(e) => e.stopPropagation()} title="Text">💬</a>
           </div>
         )}
-        <button className="visit-btn" onClick={(e) => { e.stopPropagation(); onVisit(loc.id); }}>✓ Visited</button>
+
       </div>
     </div>
   );
@@ -612,7 +614,7 @@ function App() {
   }
 
   // ── Derived ────────────────────────────────────────────────────────────────
-  const sorted   = [...locations].sort((a,b) => (b.priority?1:0)-(a.priority?1:0));
+  const sorted   = [...locations].sort((a,b) => a.name.localeCompare(b.name));
   const filtered = sorted.filter(l =>
     !filter ||
     l.name.toLowerCase().includes(filter.toLowerCase()) ||
@@ -712,14 +714,11 @@ function App() {
                 loc={loc}
                 selected={selected.has(loc.id)}
                 onToggle={toggleStop}
-                onVisit={logVisit}
               />
             ))}
           </div>
 
-          <button className="go-btn" disabled={selectedCount === 0} onClick={launchRoute}>
-            <span>🗺</span> Open in Google Maps
-          </button>
+
 
           {showTip && (
             <div className="optimize-tip">
@@ -762,6 +761,15 @@ function App() {
             ))}
           </div>
         </div>
+      )}
+
+      {/* Floating Action Button — Today tab only */}
+      {tab === 'today' && (
+        <button className={`fab ${selectedCount === 0 ? 'hidden' : ''}`} onClick={launchRoute}>
+          <span>🗺</span>
+          <span>Open in Maps</span>
+          <span className="fab-badge">{selectedCount}</span>
+        </button>
       )}
 
       {/* Edit Modal */}
