@@ -633,15 +633,11 @@ function App() {
     const origin = startAddr ? encodeURIComponent(startAddr) : 'Current+Location';
     const dest = encoded[encoded.length - 1];
     const waypoints = encoded.slice(0, -1);
-    const mapsUrl = stops.length === 1
-      ? `comgooglemaps://?daddr=${encoded[0]}&directionsmode=driving`
-      : `comgooglemaps://?daddr=${dest}&waypoints=${waypoints.join('%7C')}&directionsmode=driving`;
-    const fallbackUrl = stops.length === 1
-      ? `https://maps.apple.com/?daddr=${encoded[0]}&dirflg=d`
+    // Always open Google Maps in browser - works on all devices and opens app if installed
+    const googleUrl = stops.length === 1
+      ? `https://www.google.com/maps/dir/${origin}/${encoded[0]}`
       : `https://www.google.com/maps/dir/${origin}/${encoded.slice(0,-1).join('/')}/${dest}`;
-    // Try Google Maps app first, fall back to browser
-    window.location.href = mapsUrl;
-    setTimeout(() => { window.open(fallbackUrl, '_blank'); }, 500);
+    window.open(googleUrl, '_blank');
     showToast(`Opening ${stops.length} stop${stops.length > 1 ? 's' : ''} in Maps`);
     if (stops.length > 1) setShowTip(true);
   }
