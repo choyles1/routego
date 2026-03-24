@@ -798,7 +798,7 @@ function App() {
 
       {/* Floating Action Button — Today tab only */}
       {tab === 'today' && (
-        <button className={`fab ${selectedCount === 0 ? 'hidden' : ''}`} onClick={launchRoute}>
+        <button className={`fab ${selectedCount === 0 ? 'hidden' : ''}`} onClick={launchRoute} style={{background:'#b84000',color:'#ffffff'}}>
           <span>🗺</span>
           <span>Open in Maps</span>
           <span className="fab-badge">{selectedCount}</span>
