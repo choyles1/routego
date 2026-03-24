@@ -15,7 +15,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <style>
   :root {
-    --bg: #d8dee8; --surface: #ffffff; --surface2: #dde3f0; --border: #a8b4cc;
+    --bg: #ffffff; --surface: #f4f6fb; --surface2: #e8ecf5; --border: #a8b4cc;
     --accent: #e8590c; --accent2: #f97316; --text: #0f1220; --muted: #3d4966;
     --green: #16a34a; --red: #dc2626; --gold: #d97706; --radius: 12px;
   }
@@ -24,7 +24,7 @@
   input, select, button { font-family: 'Syne', sans-serif; }
 
 /* Header */
-.header { padding: 18px 20px 12px; border-bottom: 1px solid var(–border); position: sticky; top: 0; background: var(–bg); z-index: 100; box-shadow: 0 1px 8px rgba(0,0,0,0.06); }
+.header { padding: 18px 20px 12px; border-bottom: 2px solid #c0c8dc; position: sticky; top: 0; background: #ffffff; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.10); }
 .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
 .app-title { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
 .app-title span { color: var(–accent); }
@@ -42,9 +42,9 @@
 .sync-status.error { color: var(–red); }
 
 /* Tabs */
-.tabs { display: flex; gap: 4px; padding: 10px 20px; border-bottom: 1px solid var(–border); background: var(–bg); }
-.tab { flex: 1; padding: 8px; border-radius: 8px; border: none; background: #1a2040; color: #fff; font-size: 13px; font-weight: 800; cursor: pointer; transition: all 0.15s; }
-.tab.active { background: var(–accent); border: none; color: #fff; }
+.tabs { display: flex; gap: 6px; padding: 12px 20px; border-bottom: 2px solid #c0c8dc; background: #ffffff; }
+.tab { flex: 1; padding: 10px 8px; border-radius: 8px; border: none; background: #1a2040 !important; color: #ffffff !important; font-size: 13px; font-weight: 800; cursor: pointer; transition: all 0.15s; }
+.tab.active { background: #e8590c !important; border: none; color: #ffffff !important; }
 
 /* Panel */
 .panel { padding: 14px 20px; }
@@ -60,7 +60,7 @@
 .setup-save-btn { padding: 8px 14px; background: var(–accent); color: #fff; border: none; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
 
 /* Route Summary */
-.route-summary { background: var(–surface); border-radius: var(–radius); padding: 14px 16px; margin-bottom: 12px; border: 1px solid var(–border); display: flex; align-items: center; justify-content: space-between; }
+.route-summary { background: #f0f4ff; border-radius: var(–radius); padding: 14px 16px; margin-bottom: 12px; border: 2px solid #a8b4cc; display: flex; align-items: center; justify-content: space-between; }
 .route-summary-label { font-size: 12px; color: var(–muted); margin-bottom: 2px; }
 .route-summary-count { font-size: 24px; font-weight: 800; color: var(–accent); font-family: ‘DM Mono’, monospace; }
 .route-summary-count span { font-size: 14px; color: var(–muted); font-weight: 400; }
@@ -152,7 +152,7 @@
 .priority-toggle.on { background: #fef3c7; border-color: #fcd34d; }
 .priority-label { font-size: 13px; font-weight: 600; color: var(–muted); }
 .priority-toggle.on .priority-label { color: var(–gold); }
-.add-btn { width: 100%; padding: 14px; background: var(–accent); color: #fff; border: none; border-radius: 8px; font-size: 15px; font-weight: 800; cursor: pointer; transition: all 0.15s; letter-spacing: 0.3px; }
+.add-btn { width: 100%; padding: 16px; background: #e8590c !important; color: #ffffff !important; border: none; border-radius: 8px; font-size: 16px; font-weight: 800; cursor: pointer; transition: all 0.15s; letter-spacing: 0.3px; }
 .add-btn:hover { background: var(–accent2); }
 
 /* Saved cards */
