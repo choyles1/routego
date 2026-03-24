@@ -117,7 +117,7 @@
 .go-btn { width: 100%; padding: 18px; background: var(–accent); color: #fff; border: none; border-radius: var(–radius); font-size: 16px; font-weight: 800; cursor: pointer; letter-spacing: 0.5px; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 10px; }
 .go-btn:active { transform: scale(0.98); background: var(–accent2); }
 .go-btn:disabled { background: var(–surface2); color: var(–muted); cursor: not-allowed; transform: none; border: 1px solid var(–border); }
-.fab { position: fixed; bottom: 24px; right: 20px; z-index: 150; display: flex; align-items: center; gap: 8px; padding: 16px 22px; background: var(–accent); color: #fff; border: none; border-radius: 50px; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 24px rgba(232,89,12,0.55); transition: all 0.2s cubic-bezier(.34,1.56,.64,1); letter-spacing: 0.3px; }
+.fab { position: fixed; bottom: 24px; right: 20px; z-index: 150; display: flex; align-items: center; gap: 8px; padding: 16px 22px; background: #b84000; color: #fff; border: none; border-radius: 50px; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 24px rgba(140,50,0,0.55); transition: all 0.2s cubic-bezier(.34,1.56,.64,1); letter-spacing: 0.3px; }
 .fab:active { transform: scale(0.95); background: var(–accent2); }
 .fab.hidden { transform: translateY(100px); opacity: 0; pointer-events: none; }
 .fab-badge { background: #fff; color: var(–accent); border-radius: 50%; width: 20px; height: 20px; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
@@ -540,6 +540,13 @@ function App() {
     } else if (!apiKey) {
       setStatus('Not connected — enter API key above');
     }
+    // Hide toast when app regains focus (returning from Maps)
+    const handleFocus = () => setToast(t => ({ ...t, visible: false }));
+    window.addEventListener('focus', handleFocus);
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible') setToast(t => ({ ...t, visible: false }));
+    });
+    return () => window.removeEventListener('focus', handleFocus);
   }, []);
 
   // ── Save + sync ────────────────────────────────────────────────────────────
@@ -624,10 +631,17 @@ function App() {
     if (stops.length === 0) return;
     const encoded = stops.map(l => encodeURIComponent(l.address));
     const origin = startAddr ? encodeURIComponent(startAddr) : 'Current+Location';
-    const url = stops.length === 1
-      ? `https://www.google.com/maps/dir/${origin}/${encoded[0]}`
-      : `https://www.google.com/maps/dir/${origin}/${encoded.slice(0,-1).join('/')}/${encoded[encoded.length-1]}`;
-    window.open(url, '_blank');
+    const dest = encoded[encoded.length - 1];
+    const waypoints = encoded.slice(0, -1);
+    const mapsUrl = stops.length === 1
+      ? `comgooglemaps://?daddr=${encoded[0]}&directionsmode=driving`
+      : `comgooglemaps://?daddr=${dest}&waypoints=${waypoints.join('%7C')}&directionsmode=driving`;
+    const fallbackUrl = stops.length === 1
+      ? `https://maps.apple.com/?daddr=${encoded[0]}&dirflg=d`
+      : `https://www.google.com/maps/dir/${origin}/${encoded.slice(0,-1).join('/')}/${dest}`;
+    // Try Google Maps app first, fall back to browser
+    window.location.href = mapsUrl;
+    setTimeout(() => { window.open(fallbackUrl, '_blank'); }, 500);
     showToast(`Opening ${stops.length} stop${stops.length > 1 ? 's' : ''} in Maps`);
     if (stops.length > 1) setShowTip(true);
   }
@@ -665,8 +679,8 @@ function App() {
 
       {/* Tabs */}
       <div className="tabs">
-        <button className={`tab ${tab==='today'?'active':''}`} onClick={() => setTab('today')}>Today's Route</button>
-        <button className={`tab ${tab==='manage'?'active':''}`} onClick={() => setTab('manage')}>Manage Locations</button>
+        <button className={`tab ${tab==='today'?'active':''}`} onClick={() => { setTab('today'); setToast(t=>({...t,visible:false})); }}>Today's Route</button>
+        <button className={`tab ${tab==='manage'?'active':''}`} onClick={() => { setTab('manage'); setToast(t=>({...t,visible:false})); }}>Manage Locations</button>
       </div>
 
       {/* Today Panel */}
