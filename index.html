@@ -633,11 +633,11 @@ function App() {
     const origin = startAddr ? encodeURIComponent(startAddr) : 'Current+Location';
     const dest = encoded[encoded.length - 1];
     const waypoints = encoded.slice(0, -1);
-    // Always open Google Maps in browser - works on all devices and opens app if installed
-    const googleUrl = stops.length === 1
-      ? `https://www.google.com/maps/dir/${origin}/${encoded[0]}`
-      : `https://www.google.com/maps/dir/${origin}/${encoded.slice(0,-1).join('/')}/${dest}`;
-    window.open(googleUrl, '_blank');
+    // comgooglemaps:// opens Google Maps app directly, bypassing iOS default map routing
+    const googleAppUrl = stops.length === 1
+      ? `comgooglemaps://?daddr=${encoded[0]}&directionsmode=driving&zoom=14`
+      : `comgooglemaps://?daddr=${dest}&waypoints=${waypoints.join('%7C')}&directionsmode=driving`;
+    window.location.href = googleAppUrl;
     showToast(`Opening ${stops.length} stop${stops.length > 1 ? 's' : ''} in Maps`);
     if (stops.length > 1) setShowTip(true);
   }
