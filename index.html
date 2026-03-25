@@ -632,11 +632,17 @@ function App() {
     const encoded = stops.map(l => encodeURIComponent(l.address));
     const origin = startAddr ? encodeURIComponent(startAddr) : 'Current+Location';
     const dest = encoded[encoded.length - 1];
-    const waypoints = encoded.slice(0, -1);
-    // comgooglemaps:// opens Google Maps app directly, bypassing iOS default map routing
-    const googleAppUrl = stops.length === 1
-      ? `comgooglemaps://?daddr=${encoded[0]}&directionsmode=driving&zoom=14`
-      : `comgooglemaps://?daddr=${dest}&waypoints=${waypoints.join('%7C')}&directionsmode=driving`;
+    const midpoints = encoded.slice(0, -1);
+    const saddr = startAddr ? encodeURIComponent(startAddr) : '';
+
+    let googleAppUrl;
+    if (stops.length === 1) {
+      googleAppUrl = `comgooglemaps://?daddr=${dest}&directionsmode=driving`;
+      if (saddr) googleAppUrl += `&saddr=${saddr}`;
+    } else {
+      googleAppUrl = `comgooglemaps://?daddr=${dest}&waypoints=${midpoints.join('%7C')}&directionsmode=driving`;
+      if (saddr) googleAppUrl += `&saddr=${saddr}`;
+    }
     window.location.href = googleAppUrl;
     showToast(`Opening ${stops.length} stop${stops.length > 1 ? 's' : ''} in Maps`);
     if (stops.length > 1) setShowTip(true);
