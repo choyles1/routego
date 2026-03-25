@@ -631,12 +631,16 @@ function App() {
     if (stops.length === 0) return;
     const encoded = stops.map(l => encodeURIComponent(l.address));
     const origin = startAddr ? encodeURIComponent(startAddr) : 'Current+Location';
-    // Standard Google Maps directions URL - opens in Google Maps since it's set as default
+    // Build full Google Maps directions URL with all stops
     const allStops = startAddr
       ? [encodeURIComponent(startAddr), ...encoded]
       : ['Current+Location', ...encoded];
     const googleUrl = `https://www.google.com/maps/dir/${allStops.join('/')}`;
-    window.open(googleUrl, '_blank');
+
+    // Use googlechrome:// scheme to open directly in Chrome on iPhone
+    // This bypasses Safari and passes the full URL including all stops to Chrome
+    const chromeUrl = `googlechrome://maps.google.com/maps/dir/${allStops.join('/')}`;
+    window.location.href = chromeUrl;
     showToast(`Opening ${stops.length} stop${stops.length > 1 ? 's' : ''} in Maps`);
     if (stops.length > 1) setShowTip(true);
   }
