@@ -631,19 +631,12 @@ function App() {
     if (stops.length === 0) return;
     const encoded = stops.map(l => encodeURIComponent(l.address));
     const origin = startAddr ? encodeURIComponent(startAddr) : 'Current+Location';
-    const dest = encoded[encoded.length - 1];
-    const midpoints = encoded.slice(0, -1);
-    const saddr = startAddr ? encodeURIComponent(startAddr) : '';
-
-    let googleAppUrl;
-    if (stops.length === 1) {
-      googleAppUrl = `comgooglemaps://?daddr=${dest}&directionsmode=driving`;
-      if (saddr) googleAppUrl += `&saddr=${saddr}`;
-    } else {
-      googleAppUrl = `comgooglemaps://?daddr=${dest}&waypoints=${midpoints.join('%7C')}&directionsmode=driving`;
-      if (saddr) googleAppUrl += `&saddr=${saddr}`;
-    }
-    window.location.href = googleAppUrl;
+    // Standard Google Maps directions URL - opens in Google Maps since it's set as default
+    const allStops = startAddr
+      ? [encodeURIComponent(startAddr), ...encoded]
+      : ['Current+Location', ...encoded];
+    const googleUrl = `https://www.google.com/maps/dir/${allStops.join('/')}`;
+    window.open(googleUrl, '_blank');
     showToast(`Opening ${stops.length} stop${stops.length > 1 ? 's' : ''} in Maps`);
     if (stops.length > 1) setShowTip(true);
   }
