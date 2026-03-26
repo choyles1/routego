@@ -626,23 +626,41 @@ function App() {
   function selectPriority() { setSelected(new Set(locations.filter(l => l.priority).map(l => l.id))); }
 
   // ── Launch route ───────────────────────────────────────────────────────────
-  function launchRoute() {
+  function buildAndLaunch(lat, lng) {
     const stops = sorted.filter(l => selected.has(l.id));
-    if (stops.length === 0) return;
     const encoded = stops.map(l => encodeURIComponent(l.address));
-    const origin = startAddr ? encodeURIComponent(startAddr) : 'Current+Location';
-    // Build full Google Maps directions URL with all stops
-    const allStops = startAddr
-      ? [encodeURIComponent(startAddr), ...encoded]
-      : ['Current+Location', ...encoded];
-    const googleUrl = `https://www.google.com/maps/dir/${allStops.join('/')}`;
-
-    // Use googlechrome:// scheme to open directly in Chrome on iPhone
-    // This bypasses Safari and passes the full URL including all stops to Chrome
+    let allStops;
+    if (startAddr) {
+      allStops = [encodeURIComponent(startAddr), ...encoded];
+    } else if (lat && lng) {
+      allStops = [`${lat},${lng}`, ...encoded];
+    } else {
+      allStops = [...encoded]; // Google Maps will use current location automatically
+    }
     const chromeUrl = `googlechrome://maps.google.com/maps/dir/${allStops.join('/')}`;
     window.location.href = chromeUrl;
     showToast(`Opening ${stops.length} stop${stops.length > 1 ? 's' : ''} in Maps`);
     if (stops.length > 1) setShowTip(true);
+  }
+
+  function launchRoute() {
+    const stops = sorted.filter(l => selected.has(l.id));
+    if (stops.length === 0) return;
+    if (!startAddr) {
+      // Get real GPS coordinates for accurate starting point
+      if (navigator.geolocation) {
+        showToast('Getting your location...');
+        navigator.geolocation.getCurrentPosition(
+          (pos) => buildAndLaunch(pos.coords.latitude, pos.coords.longitude),
+          ()    => buildAndLaunch(null, null), // permission denied - let Maps figure it out
+          { timeout: 5000, maximumAge: 30000 }
+        );
+      } else {
+        buildAndLaunch(null, null);
+      }
+    } else {
+      buildAndLaunch(null, null);
+    }
   }
 
   // ── Derived ────────────────────────────────────────────────────────────────
