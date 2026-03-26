@@ -120,6 +120,9 @@
 .fab { position: fixed; bottom: 24px; right: 20px; z-index: 150; display: flex; align-items: center; gap: 8px; padding: 16px 22px; background: #b84000; color: #fff; border: none; border-radius: 50px; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 24px rgba(140,50,0,0.55); transition: all 0.2s cubic-bezier(.34,1.56,.64,1); letter-spacing: 0.3px; }
 .fab:active { transform: scale(0.95); background: var(–accent2); }
 .fab.hidden { transform: translateY(100px); opacity: 0; pointer-events: none; }
+.fab-apple { position: fixed; bottom: 24px; left: 20px; z-index: 150; display: flex; align-items: center; gap: 8px; padding: 14px 18px; background: #1a2040; color: #fff; border: none; border-radius: 50px; font-size: 14px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 24px rgba(26,32,64,0.4); transition: all 0.2s cubic-bezier(.34,1.56,.64,1); letter-spacing: 0.3px; }
+.fab-apple:active { transform: scale(0.95); background: #2d3a6b; }
+.fab-apple.hidden { transform: translateY(100px); opacity: 0; pointer-events: none; }
 .fab-badge { background: #fff; color: var(–accent); border-radius: 50%; width: 20px; height: 20px; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 
 /* Optimize tip */
@@ -643,6 +646,26 @@ function App() {
     if (stops.length > 1) setShowTip(true);
   }
 
+  function launchAppleMaps() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          const url = `http://maps.apple.com/?saddr=${lat},${lng}&dirflg=d`;
+          window.open(url, '_blank');
+        },
+        () => {
+          window.open('http://maps.apple.com/', '_blank');
+        },
+        { timeout: 5000, maximumAge: 30000 }
+      );
+    } else {
+      window.open('http://maps.apple.com/', '_blank');
+    }
+    showToast('Opening Apple Maps');
+  }
+
   function launchRoute() {
     const stops = sorted.filter(l => selected.has(l.id));
     if (stops.length === 0) return;
@@ -813,13 +836,19 @@ function App() {
         </div>
       )}
 
-      {/* Floating Action Button — Today tab only */}
+      {/* Floating Action Buttons — Today tab only */}
       {tab === 'today' && (
-        <button className={`fab ${selectedCount === 0 ? 'hidden' : ''}`} onClick={launchRoute} style={{background:'#b84000',color:'#ffffff'}}>
-          <span>🗺</span>
-          <span>Open in Maps</span>
-          <span className="fab-badge">{selectedCount}</span>
-        </button>
+        <>
+          <button className={`fab ${selectedCount === 0 ? 'hidden' : ''}`} onClick={launchRoute} style={{background:'#b84000',color:'#ffffff'}}>
+            <span>🗺</span>
+            <span>Open in Maps</span>
+            <span className="fab-badge">{selectedCount}</span>
+          </button>
+          <button className="fab-apple" onClick={launchAppleMaps} title="Open Apple Maps for quick lookup">
+            <span>🍎</span>
+            <span>Apple Maps</span>
+          </button>
+        </>
       )}
 
       {/* Edit Modal */}
