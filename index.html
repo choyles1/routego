@@ -647,23 +647,9 @@ function App() {
   }
 
   function launchAppleMaps() {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const lat = pos.coords.latitude;
-          const lng = pos.coords.longitude;
-          const url = `http://maps.apple.com/?saddr=${lat},${lng}&dirflg=d`;
-          window.open(url, '_blank');
-        },
-        () => {
-          window.open('http://maps.apple.com/', '_blank');
-        },
-        { timeout: 5000, maximumAge: 30000 }
-      );
-    } else {
-      window.open('http://maps.apple.com/', '_blank');
-    }
     showToast('Opening Apple Maps');
+    // maps:// is the native URL scheme that directly opens the Apple Maps app
+    window.location.href = 'maps://';
   }
 
   function launchRoute() {
