@@ -629,19 +629,23 @@ function App() {
 
   // ── Launch route ───────────────────────────────────────────────────────────
   function launchAppleMaps() {
+    const stops = sorted.filter(l => selected.has(l.id));
     showToast('Opening Apple Maps');
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (pos) => {
-          const lat = pos.coords.latitude;
-          const lng = pos.coords.longitude;
-          window.location.href = `maps://?ll=${lat},${lng}&z=14`;
-        },
-        () => { window.location.href = 'maps://'; },
-        { timeout: 5000, maximumAge: 30000 }
-      );
-    } else {
+    if (stops.length === 0) {
+      // No stops — just open Apple Maps at current location
       window.location.href = 'maps://';
+      return;
+    }
+    // Pass the first selected stop as destination
+    // Apple Maps will route from current location to that address
+    const dest = encodeURIComponent(stops[0].address);
+    if (stops.length === 1) {
+      window.location.href = `maps://?daddr=${dest}&dirflg=d`;
+    } else {
+      // For multiple stops, pass first as origin and last as destination
+      const origin = encodeURIComponent(stops[0].address);
+      const finalDest = encodeURIComponent(stops[stops.length - 1].address);
+      window.location.href = `maps://?saddr=${origin}&daddr=${finalDest}&dirflg=d`;
     }
   }
 
