@@ -838,17 +838,17 @@ function App() {
 
       {/* Floating Action Buttons — Today tab only */}
       {tab === 'today' && (
-        <>
+        <div>
           <button className={`fab ${selectedCount === 0 ? 'hidden' : ''}`} onClick={launchRoute} style={{background:'#b84000',color:'#ffffff'}}>
             <span>🗺</span>
             <span>Open in Maps</span>
             <span className="fab-badge">{selectedCount}</span>
           </button>
-          <button className="fab-apple" onClick={launchAppleMaps} title="Open Apple Maps for quick lookup">
+          <button className="fab-apple" onClick={launchAppleMaps}>
             <span>🍎</span>
             <span>Apple Maps</span>
           </button>
-        </>
+        </div>
       )}
 
       {/* Edit Modal */}
