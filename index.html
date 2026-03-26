@@ -647,31 +647,33 @@ function App() {
   }
 
   function launchAppleMaps() {
-    const stops = sorted.filter(l => selected.has(l.id));
-    if (stops.length === 0) {
-      // No stops selected — just open Apple Maps at current location
-      window.location.href = 'safari-https://maps.apple.com/';
-      showToast('Opening Apple Maps');
-      return;
-    }
-    // Build Apple Maps URL with all selected stops
-    // Apple Maps supports daddr for destination and saddr for source
-    const encoded = stops.map(l => encodeURIComponent(l.address));
-    const dest = encoded[encoded.length - 1];
-    const waypoints = encoded.slice(0, -1);
-    let appleUrl;
-    if (stops.length === 1) {
-      appleUrl = `maps.apple.com/?daddr=${dest}&dirflg=d`;
-    } else {
-      // Apple Maps doesn't support waypoints via URL — chain stops as destination
-      // Best approach: pass all stops joined so user sees them in Maps
-      appleUrl = `maps.apple.com/?daddr=${dest}&dirflg=d`;
-      if (waypoints.length > 0) {
-        appleUrl += `&saddr=${waypoints[0]}`;
-      }
-    }
-    window.location.href = `safari-https://${appleUrl}`;
     showToast('Opening Apple Maps');
+    // Get current GPS coords and open Apple Maps centered there
+    // Use a data URI page in Safari which can trigger the maps:// scheme
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude;
+          const lng = pos.coords.longitude;
+          // Build a tiny HTML page that immediately redirects to maps://
+          // and open it as a data URI — this runs in Safari context
+          const page = `<html><head><meta http-equiv="refresh" content="0;url=maps://?ll=${lat},${lng}&z=14"></head><body></body></html>`;
+          const dataUrl = 'data:text/html,' + encodeURIComponent(page);
+          window.open(dataUrl, '_blank');
+        },
+        () => {
+          // No location — just open maps:// directly
+          const page = `<html><head><meta http-equiv="refresh" content="0;url=maps://"></head><body></body></html>`;
+          const dataUrl = 'data:text/html,' + encodeURIComponent(page);
+          window.open(dataUrl, '_blank');
+        },
+        { timeout: 5000, maximumAge: 30000 }
+      );
+    } else {
+      const page = `<html><head><meta http-equiv="refresh" content="0;url=maps://"></head><body></body></html>`;
+      const dataUrl = 'data:text/html,' + encodeURIComponent(page);
+      window.open(dataUrl, '_blank');
+    }
   }
 
   function launchRoute() {
