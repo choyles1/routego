@@ -648,8 +648,9 @@ function App() {
 
   function launchAppleMaps() {
     showToast('Opening Apple Maps');
-    // maps:// is the native URL scheme that directly opens the Apple Maps app
-    window.location.href = 'maps://';
+    // Open via Safari using x-web-search which bypasses Chrome and triggers Apple Maps
+    // safari-https:// forces the URL to open in Safari which can then launch Apple Maps
+    window.location.href = 'safari-https://maps.apple.com/?dirflg=d';
   }
 
   function launchRoute() {
