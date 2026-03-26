@@ -647,10 +647,31 @@ function App() {
   }
 
   function launchAppleMaps() {
+    const stops = sorted.filter(l => selected.has(l.id));
+    if (stops.length === 0) {
+      // No stops selected — just open Apple Maps at current location
+      window.location.href = 'safari-https://maps.apple.com/';
+      showToast('Opening Apple Maps');
+      return;
+    }
+    // Build Apple Maps URL with all selected stops
+    // Apple Maps supports daddr for destination and saddr for source
+    const encoded = stops.map(l => encodeURIComponent(l.address));
+    const dest = encoded[encoded.length - 1];
+    const waypoints = encoded.slice(0, -1);
+    let appleUrl;
+    if (stops.length === 1) {
+      appleUrl = `maps.apple.com/?daddr=${dest}&dirflg=d`;
+    } else {
+      // Apple Maps doesn't support waypoints via URL — chain stops as destination
+      // Best approach: pass all stops joined so user sees them in Maps
+      appleUrl = `maps.apple.com/?daddr=${dest}&dirflg=d`;
+      if (waypoints.length > 0) {
+        appleUrl += `&saddr=${waypoints[0]}`;
+      }
+    }
+    window.location.href = `safari-https://${appleUrl}`;
     showToast('Opening Apple Maps');
-    // Open via Safari using x-web-search which bypasses Chrome and triggers Apple Maps
-    // safari-https:// forces the URL to open in Safari which can then launch Apple Maps
-    window.location.href = 'safari-https://maps.apple.com/?dirflg=d';
   }
 
   function launchRoute() {
