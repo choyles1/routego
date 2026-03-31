@@ -112,6 +112,15 @@
 .tag-client   { color: #6d3bbf; border-color: #d4bbf5; background: #f0e8fd; }
 .tag-office   { color: #166534; border-color: #a7d9b8; background: #dcfce7; }
 .tag-other    { color: #c2410c; border-color: #fbbf99; background: #fff0e6; }
+.day-mon { color: #0369a1; border-color: #7dd3fc; background: #e0f2fe; }
+.day-tue { color: #7c3aed; border-color: #c4b5fd; background: #f3f0ff; }
+.day-wed { color: #065f46; border-color: #6ee7b7; background: #d1fae5; }
+.day-thu { color: #b45309; border-color: #fcd34d; background: #fef9c3; }
+.day-fri { color: #be185d; border-color: #f9a8d4; background: #fce7f3; }
+.day-sat  { color: #0f766e; border-color: #5eead4; background: #f0fdfa; }
+.day-none { color: #6b7280; border-color: #d1d5db; background: #f3f4f6; }
+.day-tag { font-size: 10px; padding: 2px 8px; border-radius: 20px; border: 1px solid; flex-shrink: 0; font-weight: 700; cursor: pointer; transition: all 0.15s; }
+.day-tag:hover { opacity: 0.8; }
 
 /* Go button */
 .go-btn { width: 100%; padding: 18px; background: var(–accent); color: #fff; border: none; border-radius: var(–radius); font-size: 16px; font-weight: 800; cursor: pointer; letter-spacing: 0.5px; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 10px; }
@@ -227,6 +236,16 @@ const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov
 const TAG_CLASS = { facility:'tag-facility', client:'tag-client', office:'tag-office', other:'tag-other' };
 const TAG_LABEL = { facility:'Facility', client:'Client', office:'Office', other:'Other' };
 
+const DAYS_OF_WEEK = [
+  { key: 'mon', label: 'Mon' },
+  { key: 'tue', label: 'Tue' },
+  { key: 'wed', label: 'Wed' },
+  { key: 'thu', label: 'Thu' },
+  { key: 'fri', label: 'Fri' },
+  { key: 'sat', label: 'Sat' },
+];
+const DAY_COLORS = { mon:'day-mon', tue:'day-tue', wed:'day-wed', thu:'day-thu', fri:'day-fri', sat:'day-sat', none:'day-none' };
+
 function formatPhone(val) {
   const digits = val.replace(/\D/g, '').slice(0, 10);
   if (digits.length <= 3) return digits;
@@ -314,12 +333,19 @@ function LocationFields({ data, onChange }) {
           <input className="form-input" value={data.notes} onChange={f('notes')} placeholder="Ask for Linda..." />
         </div>
       </div>
+      <div className="form-row">
+        <label className="form-label">Scheduled Day</label>
+        <select className="form-input" value={data.day || 'none'} onChange={(e) => onChange({ ...data, day: e.target.value })}>
+          <option value="none">No day assigned</option>
+          {DAYS_OF_WEEK.map(d => <option key={d.key} value={d.key}>{d.label}</option>)}
+        </select>
+      </div>
       <PriorityToggle value={data.priority} onChange={(v) => onChange({ ...data, priority: v })} />
     </>
   );
 }
 
-const BLANK_LOC = { name:'', address:'', contact:'', phone:'', phone2:'', category:'facility', notes:'', priority:false };
+const BLANK_LOC = { name:'', address:'', contact:'', phone:'', phone2:'', category:'facility', notes:'', priority:false, day:'none' };
 
 // ── Edit Modal ───────────────────────────────────────────────────────────────
 function EditModal({ loc, onSave, onClose }) {
@@ -369,6 +395,11 @@ function StopCard({ loc, selected, onToggle }) {
         {loc.notes && <div className="stop-notes-line">📝 {loc.notes}</div>}
         <div className="stop-meta">
           <Tag cat={loc.category} />
+          {loc.day && loc.day !== 'none' && (
+            <span className={`day-tag ${DAY_COLORS[loc.day] || 'day-none'}`}>
+              {DAYS_OF_WEEK.find(d => d.key === loc.day)?.label}
+            </span>
+          )}
           <span className="stop-visited">{visitLine}</span>
         </div>
       </div>
@@ -419,6 +450,11 @@ function SavedCard({ loc, index, onEdit, onDelete }) {
             </div>
           )}
           {loc.notes && <div className="saved-notes">📝 {loc.notes}</div>}
+          {loc.day && loc.day !== 'none' && (
+            <span className={`day-tag ${DAY_COLORS[loc.day] || 'day-none'}`} style={{display:'inline-block',marginTop:'4px'}}>
+              {DAYS_OF_WEEK.find(d => d.key === loc.day)?.label}
+            </span>
+          )}
         </div>
         <div className="saved-btns">
           <Tag cat={loc.category} />
@@ -668,7 +704,13 @@ function App() {
   }
 
   // ── Derived ────────────────────────────────────────────────────────────────
-  const sorted   = [...locations].sort((a,b) => a.name.localeCompare(b.name));
+  const todayKey = ['sun','mon','tue','wed','thu','fri','sat'][new Date().getDay()];
+  const sorted   = [...locations].sort((a,b) => {
+    const aToday = a.day === todayKey ? 0 : 1;
+    const bToday = b.day === todayKey ? 0 : 1;
+    if (aToday !== bToday) return aToday - bToday;
+    return a.name.localeCompare(b.name);
+  });
   const filtered = sorted.filter(l =>
     !filter ||
     l.name.toLowerCase().includes(filter.toLowerCase()) ||
