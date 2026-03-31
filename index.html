@@ -350,7 +350,7 @@ const BLANK_LOC = { name:'', address:'', contact:'', phone:'', phone2:'', catego
 // ── Edit Modal ───────────────────────────────────────────────────────────────
 function EditModal({ loc, onSave, onClose }) {
   const [data, setData] = useState(loc ? { ...loc } : BLANK_LOC);
-  useEffect(() => { if (loc) setData({ ...loc }); }, [loc]);
+  useEffect(() => { if (loc) setData({ ...loc, day: loc.day || 'none' }); }, [loc]);
   const hidden = !loc;
 
   function handleSave() {
@@ -639,10 +639,11 @@ function App() {
   }
 
   async function saveEdit(data) {
-    const next = locations.map(l => l.id === data.id ? { ...l, ...data } : l);
+    const updated = { ...data, day: data.day || 'none' };
+    const next = locations.map(l => l.id === updated.id ? { ...l, ...updated } : l);
     await saveAndSync(next);
     setEditLoc(null);
-    showToast(`${data.name} updated!`);
+    showToast(`${updated.name} updated!`);
   }
 
   async function logVisit(id) {
