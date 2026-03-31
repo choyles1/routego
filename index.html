@@ -8,26 +8,20 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="RouteGO">
-<link rel="apple-touch-icon" id="appIcon" href="">
-<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#fff;--surface:#f4f6fb;--surface2:#e8ecf5;--border:#a8b4cc;--accent:#e8590c;--accent2:#f97316;--text:#0f1220;--muted:#3d4966;--green:#16a34a;--red:#dc2626;--gold:#d97706;--radius:12px;}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
-body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif;min-height:100vh;max-width:480px;margin:0 auto;padding-bottom:80px;}
-input,select,button{font-family:'Syne',sans-serif;}
+body{background:var(--bg);color:var(--text);font-family:Arial,sans-serif;min-height:100vh;max-width:480px;margin:0 auto;padding-bottom:80px;}
+input,select,button{font-family:Arial,sans-serif;}
 .header{padding:18px 20px 12px;border-bottom:2px solid #c0c8dc;position:sticky;top:0;background:#fff;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.1);}
 .header-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px;}
 .app-title{font-size:22px;font-weight:800;letter-spacing:-.5px;}
 .app-title span{color:var(--accent);}
 .hright{display:flex;align-items:center;gap:6px;}
-.date-badge{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);background:var(--surface);padding:4px 10px;border-radius:20px;border:1px solid var(--border);}
-.sync-btn,.reset-btn{background:#1a2040;border:none;border-radius:20px;padding:5px 12px;font-size:11px;font-weight:700;color:#fff;cursor:pointer;display:flex;align-items:center;gap:4px;}
+.date-badge{font-size:11px;color:var(--muted);background:var(--surface);padding:4px 10px;border-radius:20px;border:1px solid var(--border);}
+.sync-btn,.reset-btn{background:#1a2040;border:none;border-radius:20px;padding:5px 12px;font-size:11px;font-weight:700;color:#fff;cursor:pointer;}
 .reset-btn{padding:5px 9px;font-size:13px;}
-.sync-btn:hover,.reset-btn:hover,.sync-btn.syncing{background:var(--accent);}
-.spin{display:inline-block;}
-.spin.on{animation:spin .8s linear infinite;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.sync-st{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;margin-top:2px;}
+.sync-st{font-size:10px;color:var(--muted);margin-top:2px;}
 .sync-st.err{color:var(--red);}
 .tabs{display:flex;gap:6px;padding:12px 20px;border-bottom:2px solid #c0c8dc;background:#fff;}
 .tab{flex:1;padding:10px 8px;border-radius:8px;border:none;background:#1a2040;color:#fff;font-size:13px;font-weight:800;cursor:pointer;}
@@ -37,39 +31,34 @@ input,select,button{font-family:'Syne',sans-serif;}
 .setup-box-title{font-size:13px;font-weight:700;color:var(--accent);margin-bottom:4px;}
 .setup-box-sub{font-size:12px;color:#92400e;line-height:1.5;margin-bottom:10px;}
 .setup-row{display:flex;gap:8px;margin-bottom:8px;}
-.setup-in{flex:1;background:#fff;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-family:'DM Mono',monospace;font-size:12px;color:var(--text);outline:none;}
-.setup-in:focus{border-color:var(--accent);}
+.setup-in{flex:1;background:#fff;border:1px solid var(--border);border-radius:8px;padding:8px 12px;font-size:12px;color:var(--text);outline:none;}
 .setup-btn{padding:8px 14px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap;}
 .route-sum{background:#f0f4ff;border-radius:var(--radius);padding:14px 16px;margin-bottom:12px;border:2px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .sum-label{font-size:12px;color:var(--muted);margin-bottom:2px;}
-.sum-count{font-size:24px;font-weight:800;color:var(--accent);font-family:'DM Mono',monospace;}
+.sum-count{font-size:24px;font-weight:800;color:var(--accent);}
 .sum-count span{font-size:14px;color:var(--muted);font-weight:400;}
 .sum-right{text-align:right;}
 .sum-right-lbl{font-size:12px;color:var(--muted);margin-bottom:2px;}
 .sum-right-val{font-size:13px;color:var(--accent);font-weight:700;}
 .fld-lbl{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px;}
-.txt-in,.srch-in,.frm-in{width:100%;background:#fff;border:2px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-family:'DM Mono',monospace;font-size:13px;outline:none;}
-.txt-in:focus,.srch-in:focus,.frm-in:focus{border-color:var(--accent);}
-.txt-in::placeholder,.srch-in::placeholder,.frm-in::placeholder{color:#8090a8;}
+.txt-in,.srch-in,.frm-in{width:100%;background:#fff;border:2px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);font-size:13px;outline:none;}
 .srch-in{margin-bottom:10px;}
 .sel-acts{display:flex;gap:6px;margin-bottom:10px;}
 .sel-btn{flex:1;padding:8px 4px;background:#1a2040;border:none;border-radius:8px;color:#fff;font-size:11px;font-weight:700;cursor:pointer;}
-.sel-btn:hover{background:var(--accent);}
 .stop-list{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
 .stop-card{background:#fff;border:2px solid var(--border);border-radius:var(--radius);padding:12px 14px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;border-left:4px solid transparent;box-shadow:0 1px 4px rgba(0,0,0,.06);}
 .stop-card.sel{border-color:var(--accent);background:rgba(232,89,12,.05);box-shadow:0 0 0 2px var(--accent);}
 .stop-card.pri{border-left-color:var(--gold);}
-.stop-card.sel.pri{border-color:var(--accent);border-left-color:var(--accent);}
 .chk{width:24px;height:24px;border-radius:50%;border:2.5px solid #7080a0;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:13px;font-weight:900;margin-top:1px;}
 .stop-card.sel .chk{background:var(--accent);border-color:var(--accent);color:#fff;}
 .sbody{flex:1;min-width:0;}
 .nm-row{display:flex;align-items:center;gap:5px;margin-bottom:2px;}
 .snm{font-size:15px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.sadr{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:'DM Mono',monospace;margin-bottom:2px;}
+.sadr{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
 .scnt{font-size:11px;color:var(--muted);margin-bottom:2px;}
 .snts{font-size:11px;color:var(--accent);font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:4px;}
 .smeta{display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
-.svis{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;}
+.svis{font-size:10px;color:var(--muted);}
 .sacts{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0;}
 .cbts{display:flex;gap:4px;}
 .ibt{font-size:18px;background:none;border:none;cursor:pointer;padding:2px;line-height:1;text-decoration:none;display:inline-block;}
@@ -112,20 +101,18 @@ input,select,button{font-family:'Syne',sans-serif;}
 .saved-card{background:#fff;border:2px solid var(--border);border-radius:var(--radius);padding:13px 14px;border-left:4px solid transparent;box-shadow:0 1px 4px rgba(0,0,0,.06);}
 .saved-card.pc{border-left-color:var(--gold);}
 .sc-top{display:flex;align-items:flex-start;gap:10px;}
-.sc-num{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);min-width:20px;margin-top:2px;flex-shrink:0;}
+.sc-num{font-size:11px;color:var(--muted);min-width:20px;margin-top:2px;flex-shrink:0;}
 .sc-info{flex:1;min-width:0;}
 .sc-nmrow{display:flex;align-items:center;gap:6px;margin-bottom:2px;}
 .sc-nm{font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.sc-adr{font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
+.sc-adr{font-size:11px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
 .sc-cnt{font-size:11px;color:var(--muted);margin-bottom:2px;}
 .sc-nts{font-size:11px;color:var(--accent);font-style:italic;margin-bottom:2px;}
 .sc-btns{display:flex;gap:5px;align-items:center;flex-shrink:0;}
 .edit-btn{background:#1a2040;border:none;border-radius:7px;padding:5px 12px;font-size:12px;font-weight:700;color:#fff;cursor:pointer;}
-.edit-btn:hover{background:var(--accent);}
 .del-btn{background:none;border:none;color:#8090b0;cursor:pointer;font-size:20px;padding:2px 4px;line-height:1;font-weight:900;}
-.del-btn:hover{color:var(--red);}
 .sc-foot{display:flex;align-items:center;gap:8px;margin-top:8px;padding-top:8px;border-top:1px solid var(--border);}
-.vstat{font-size:10px;color:var(--muted);font-family:'DM Mono',monospace;}
+.vstat{font-size:10px;color:var(--muted);}
 .modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:200;display:flex;align-items:flex-end;justify-content:center;}
 .modal-bg.hide{display:none;}
 .modal{background:#fff;border-radius:20px 20px 0 0;padding:20px 20px 40px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;}
@@ -134,40 +121,22 @@ input,select,button{font-family:'Syne',sans-serif;}
 .modal-foot{display:flex;gap:8px;margin-top:16px;}
 .modal-save{flex:1;padding:13px;background:var(--accent);color:#fff;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;}
 .modal-cancel{padding:13px 18px;background:var(--surface2);color:var(--muted);border:1px solid var(--border);border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;transition:transform .3s cubic-bezier(.34,1.56,.64,1);z-index:999;white-space:nowrap;color:#fff;pointer-events:none;}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);padding:10px 20px;border-radius:20px;font-size:13px;font-weight:700;transition:transform .3s;z-index:999;white-space:nowrap;color:#fff;pointer-events:none;}
 .toast.show{transform:translateX(-50%) translateY(0);}
 </style>
 </head>
 <body>
 <div id="root"></div>
 <script>
-(function(){
-  var c=document.createElement('canvas');c.width=180;c.height=180;
-  var x=c.getContext('2d'),g=x.createLinearGradient(0,0,180,180);
-  g.addColorStop(0,'#ff6a1a');g.addColorStop(1,'#c44a00');x.fillStyle=g;
-  x.beginPath();x.moveTo(36,0);x.lineTo(144,0);x.quadraticCurveTo(180,0,180,36);
-  x.lineTo(180,144);x.quadraticCurveTo(180,180,144,180);x.lineTo(36,180);
-  x.quadraticCurveTo(0,180,0,144);x.lineTo(0,36);x.quadraticCurveTo(0,0,36,0);x.fill();
-  x.fillStyle='rgba(255,255,255,0.15)';x.beginPath();x.arc(90,72,44,0,Math.PI*2);x.fill();
-  x.strokeStyle='#fff';x.lineWidth=9;x.lineCap='round';
-  x.beginPath();x.arc(90,68,22,0,Math.PI*2);x.stroke();
-  x.beginPath();x.moveTo(90,90);x.lineTo(90,116);x.stroke();
-  x.fillStyle='#fff';x.beginPath();x.arc(90,68,8,0,Math.PI*2);x.fill();
-  x.font='bold 26px sans-serif';x.textAlign='center';x.fillText('RouteGO',90,152);
-  document.getElementById('appIcon').href=c.toDataURL('image/png');
-})();
-
-var JBASE=‘https://api.jsonbin.io/v3’;
-var DAYS_OF_WEEK=[{k:‘mon’,l:‘Mon’},{k:‘tue’,l:‘Tue’},{k:‘wed’,l:‘Wed’},{k:‘thu’,l:‘Thu’},{k:‘fri’,l:‘Fri’},{k:‘sat’,l:‘Sat’}];
-var WDAYS=[‘Sun’,‘Mon’,‘Tue’,‘Wed’,‘Thu’,‘Fri’,‘Sat’];
-var MONTHS=[‘Jan’,‘Feb’,‘Mar’,‘Apr’,‘May’,‘Jun’,‘Jul’,‘Aug’,‘Sep’,‘Oct’,‘Nov’,‘Dec’];
+var JBASE='https://api.jsonbin.io/v3';
+var DOW=[{k:'mon',l:'Mon'},{k:'tue',l:'Tue'},{k:'wed',l:'Wed'},{k:'thu',l:'Thu'},{k:'fri',l:'Fri'},{k:'sat',l:'Sat'}];
+var WD=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+var MO=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 var S={
 locs:JSON.parse(localStorage.getItem(‘rg_locs’)||’[]’),
 selArr:JSON.parse(localStorage.getItem(‘rg_sel’)||’[]’),
-tab:‘today’,
-filter:’’,mfilter:’’,startAddr:’’,showTip:false,
-editId:null,
+tab:‘today’,filter:’’,mfilter:’’,startAddr:’’,showTip:false,editId:null,
 apiKey:localStorage.getItem(‘rg_apikey’)||’’,
 binId:localStorage.getItem(‘rg_binid’)||’’,
 syncing:false,syncMsg:’’,syncErr:false,
@@ -186,23 +155,26 @@ function cp(p){return p.replace(/\D/g,’’);}
 function fmtPh(v){var d=v.replace(/\D/g,’’).slice(0,10);if(d.length<=3)return d;if(d.length<=6)return ‘(’+d.slice(0,3)+’) ‘+d.slice(3);return ‘(’+d.slice(0,3)+’) ‘+d.slice(3,6)+’-’+d.slice(6);}
 function fmtDate(iso){if(!iso)return ‘’;var d=new Date(iso);return (d.getMonth()+1)+’/’+d.getDate()+’/’+String(d.getFullYear()).slice(2);}
 function fmtTime(d){var h=d.getHours(),m=d.getMinutes(),a=h>=12?‘pm’:‘am’;h=h%12||12;return h+’:’+String(m).padStart(2,‘0’)+a;}
-
 function tagCls(c){return {facility:‘tf’,client:‘tc’,office:‘to’,other:‘tx’}[c]||‘tx’;}
 function tagLbl(c){return {facility:‘Facility’,client:‘Client’,office:‘Office’,other:‘Other’}[c]||c;}
 function dayCls(d){return {mon:‘dmon’,tue:‘dtue’,wed:‘dwed’,thu:‘dthu’,fri:‘dfri’,sat:‘dsat’}[d]||’’;}
-function dayLbl(d){var m={mon:‘Mon’,tue:‘Tue’,wed:‘Wed’,thu:‘Thu’,fri:‘Fri’,sat:‘Sat’};return m[d]||’’;}
+function dayLbl(d){return {mon:‘Mon’,tue:‘Tue’,wed:‘Wed’,thu:‘Thu’,fri:‘Fri’,sat:‘Sat’}[d]||’’;}
 function tagH(c){return ‘<span class="tag '+tagCls(c)+'">’+tagLbl(c)+’</span>’;}
 function dayH(d){if(!d||d===‘none’)return ‘’;var dc=dayCls(d);if(!dc)return ‘’;return ‘<span class="dtag '+dc+'">’+dayLbl(d)+’</span>’;}
 
 function showToast(msg,ok){
 clearTimeout(S.toastTmr);
-S.toastMsg=msg;S.toastOk=(ok!==false);S.toastShow=true;
+S.toastMsg=msg;S.toastOk=(ok!==false);
 var t=document.getElementById(‘toast’);
 if(t){t.textContent=msg;t.style.background=S.toastOk?’#16a34a’:’#dc2626’;t.className=‘toast show’;}
-S.toastTmr=setTimeout(function(){S.toastShow=false;var t=document.getElementById(‘toast’);if(t)t.className=‘toast’;},2500);
+S.toastTmr=setTimeout(function(){var t=document.getElementById(‘toast’);if(t)t.className=‘toast’;},2500);
 }
-function hideToast(){clearTimeout(S.toastTmr);S.toastShow=false;var t=document.getElementById(‘toast’);if(t)t.className=‘toast’;}
-function setStatus(msg,err){S.syncMsg=msg;S.syncErr=!!err;var el=document.getElementById(‘syncSt’);if(el){el.textContent=msg;el.className=‘sync-st’+(err?’ err’:’’);}}
+function hideToast(){clearTimeout(S.toastTmr);var t=document.getElementById(‘toast’);if(t)t.className=‘toast’;}
+function setStatus(msg,err){
+S.syncMsg=msg;S.syncErr=!!err;
+var el=document.getElementById(‘syncSt’);
+if(el){el.textContent=msg;el.className=‘sync-st’+(err?’ err’:’’);}
+}
 
 async function pushCloud(){
 if(!S.apiKey)return;
@@ -210,9 +182,11 @@ try{
 if(!S.binId){
 var r=await fetch(JBASE+’/b’,{method:‘POST’,headers:{‘Content-Type’:‘application/json’,‘X-Master-Key’:S.apiKey,‘X-Bin-Name’:‘RouteGO’},body:JSON.stringify({locations:S.locs})});
 if(!r.ok)throw 0;
-var d=await r.json();S.binId=d.metadata.id;localStorage.setItem(‘rg_binid’,S.binId);
+var d=await r.json();
+S.binId=d.metadata.id;
+localStorage.setItem(‘rg_binid’,S.binId);
 setStatus(‘Bin ID: ‘+S.binId+’ (use on 2nd phone)’);
-} else {
+}else{
 var r2=await fetch(JBASE+’/b/’+S.binId,{method:‘PUT’,headers:{‘Content-Type’:‘application/json’,‘X-Master-Key’:S.apiKey},body:JSON.stringify({locations:S.locs})});
 if(!r2.ok)throw 0;
 setStatus(’Synced ’+fmtTime(new Date()));
@@ -222,25 +196,32 @@ setStatus(’Synced ’+fmtTime(new Date()));
 
 async function pullCloud(silent){
 if(!S.apiKey||!S.binId)return false;
-S.syncing=true;var sb=document.getElementById(‘syncBtn’);if(sb)sb.className=‘sync-btn syncing’;
+S.syncing=true;
+var sb=document.getElementById(‘syncBtn’);
+if(sb)sb.style.background=’#e8590c’;
 try{
 var r=await fetch(JBASE+’/b/’+S.binId+’/latest’,{headers:{‘X-Master-Key’:S.apiKey}});
 if(!r.ok)throw 0;
-var d=await r.json();S.locs=d.record.locations||[];saveLocs();
-setStatus(’Synced ’+fmtTime(new Date()));
+var d=await r.json();
+S.locs=d.record.locations||[];
+saveLocs();
+setStatus(‘Synced ‘+fmtTime(new Date()));
 if(!silent)showToast(‘Locations synced’);
 render();return true;
 }catch(e){
 setStatus(‘Sync failed — check API key’,true);
 if(!silent)showToast(‘Sync failed’,false);
 return false;
-}finally{S.syncing=false;var sb2=document.getElementById(‘syncBtn’);if(sb2)sb2.className=‘sync-btn’;}
+}finally{
+S.syncing=false;
+var sb2=document.getElementById(‘syncBtn’);
+if(sb2)sb2.style.background=’#1a2040’;
+}
 }
 
 async function saveSync(){saveLocs();render();await pushCloud();}
 
 function getSorted(){
-var tk=DAYS_OF_WEEK.map(function(x){return x.k;});
 var tod=[‘sun’,‘mon’,‘tue’,‘wed’,‘thu’,‘fri’,‘sat’][new Date().getDay()];
 return S.locs.slice().sort(function(a,b){
 var at=a.day===tod?0:1,bt=b.day===tod?0:1;
@@ -251,17 +232,29 @@ return a.name.localeCompare(b.name);
 
 function locFields(pfx,data){
 var dOpts=’<option value=“none”’+((!data.day||data.day===‘none’)?’ selected’:’’)+’>No day assigned</option>’;
-DAYS_OF_WEEK.forEach(function(d){dOpts+=’<option value=”’+d.k+’”’+(data.day===d.k?’ selected’:’’)+’>’+d.l+’</option>’;});
-var cOpts=[‘facility’,‘client’,‘office’,‘other’].map(function(c){return ‘<option value=”’+c+’”’+(data.category===c?’ selected’:’’)+’>’+(c.charAt(0).toUpperCase()+c.slice(1))+’</option>’;}).join(’’);
-return ‘<div class="frm-row"><label class="frm-lbl">Name / Label</label><input class="frm-in" value="'+esc(data.name)+'" oninput="setFld(\''+pfx+'\',\'name\',this.value)" placeholder="e.g. Sunrise Senior Living"></div>’+
-‘<div class="frm-row"><label class="frm-lbl">Full Address</label><input class="frm-in" value="'+esc(data.address)+'" oninput="setFld(\''+pfx+'\',\'address\',this.value)" placeholder="123 Main St, Katy TX 77449"></div>’+
-‘<div class="frm-row"><label class="frm-lbl">Contact Name</label><input class="frm-in" value="'+esc(data.contact)+'" oninput="setFld(\''+pfx+'\',\'contact\',this.value)" placeholder="Jane Smith"></div>’+
-‘<div class="frm-row2"><div><label class="frm-lbl">Phone 1</label><input class="frm-in" type="tel" value="'+esc(data.phone)+'" oninput="setPhFld(\''+pfx+'\',\'phone\',this.value)" placeholder="(281) 555-0100"></div>’+
-‘<div><label class="frm-lbl">Phone 2</label><input class="frm-in" type="tel" value="'+esc(data.phone2||'')+'" oninput="setPhFld(\''+pfx+'\',\'phone2\',this.value)" placeholder="(281) 555-0101"></div></div>’+
-‘<div class="frm-row2"><div><label class="frm-lbl">Category</label><select class="frm-in" onchange="setFld(\''+pfx+'\',\'category\',this.value)">’+cOpts+’</select></div>’+
-‘<div><label class="frm-lbl">Notes</label><input class="frm-in" value="'+esc(data.notes)+'" oninput="setFld(\''+pfx+'\',\'notes\',this.value)" placeholder="Ask for Linda..."></div></div>’+
-‘<div class="frm-row"><label class="frm-lbl">Scheduled Day</label><select class="frm-in" onchange="setFld(\''+pfx+'\',\'day\',this.value)">’+dOpts+’</select></div>’+
-‘<div class="pri-tog'+(data.priority?' on':'')+'" id="pt'+pfx+'" onclick="togPri(\''+pfx+'\')"><span id="ps'+pfx+'">’+(data.priority?‘⭐’:‘☆’)+’</span><span class="pri-lbl" id="pl'+pfx+'">’+(data.priority?‘Priority — sorts to top’:‘Mark as Priority’)+’</span></div>’;
+DOW.forEach(function(d){dOpts+=’<option value=”’+d.k+’”’+(data.day===d.k?’ selected’:’’)+’>’+d.l+’</option>’;});
+var cOpts=[‘facility’,‘client’,‘office’,‘other’].map(function(c){
+return ‘<option value=”’+c+’”’+(data.category===c?’ selected’:’’)+’>’+(c.charAt(0).toUpperCase()+c.slice(1))+’</option>’;
+}).join(’’);
+return ‘<div class="frm-row"><label class="frm-lbl">Name / Label</label>’+
+‘<input class="frm-in" value="'+esc(data.name)+'" oninput="setFld(\''+pfx+'\',\'name\',this.value)" placeholder="e.g. Sunrise Senior Living"></div>’+
+‘<div class="frm-row"><label class="frm-lbl">Full Address</label>’+
+‘<input class="frm-in" value="'+esc(data.address)+'" oninput="setFld(\''+pfx+'\',\'address\',this.value)" placeholder="123 Main St, Katy TX 77449"></div>’+
+‘<div class="frm-row"><label class="frm-lbl">Contact Name</label>’+
+‘<input class="frm-in" value="'+esc(data.contact)+'" oninput="setFld(\''+pfx+'\',\'contact\',this.value)" placeholder="Jane Smith"></div>’+
+‘<div class="frm-row2">’+
+‘<div><label class="frm-lbl">Phone 1</label><input class="frm-in" type="tel" value="'+esc(data.phone)+'" oninput="setPhFld(\''+pfx+'\',\'phone\',this.value)" placeholder="(281) 555-0100"></div>’+
+‘<div><label class="frm-lbl">Phone 2</label><input class="frm-in" type="tel" value="'+esc(data.phone2||'')+'" oninput="setPhFld(\''+pfx+'\',\'phone2\',this.value)" placeholder="(281) 555-0101"></div>’+
+‘</div>’+
+‘<div class="frm-row2">’+
+‘<div><label class="frm-lbl">Category</label><select class="frm-in" onchange="setFld(\''+pfx+'\',\'category\',this.value)">’+cOpts+’</select></div>’+
+‘<div><label class="frm-lbl">Notes</label><input class="frm-in" value="'+esc(data.notes)+'" oninput="setFld(\''+pfx+'\',\'notes\',this.value)" placeholder="Ask for Linda..."></div>’+
+‘</div>’+
+‘<div class="frm-row"><label class="frm-lbl">Scheduled Day</label>’+
+‘<select class="frm-in" onchange="setFld(\''+pfx+'\',\'day\',this.value)">’+dOpts+’</select></div>’+
+‘<div class="pri-tog'+(data.priority?' on':'')+'" id="pt'+pfx+'" onclick="togPri(\''+pfx+'\')">’+
+‘<span id="ps'+pfx+'">’+(data.priority?’⭐’:’☆’)+’</span>’+
+‘<span class="pri-lbl" id="pl'+pfx+'">’+(data.priority?‘Priority — sorts to top’:‘Mark as Priority’)+’</span></div>’;
 }
 
 function setFld(p,f,v){(p===‘N’?NF:EF)[f]=v;}
@@ -269,21 +262,18 @@ function setPhFld(p,f,v){(p===‘N’?NF:EF)[f]=fmtPh(v);}
 function togPri(p){
 var f=p===‘N’?NF:EF;f.priority=!f.priority;
 var el=document.getElementById(‘pt’+p);if(el)el.className=‘pri-tog’+(f.priority?’ on’:’’);
-var s=document.getElementById(‘ps’+p);if(s)s.textContent=f.priority?‘⭐’:‘☆’;
+var s=document.getElementById(‘ps’+p);if(s)s.innerHTML=f.priority?’⭐’:’☆’;
 var l=document.getElementById(‘pl’+p);if(l)l.textContent=f.priority?‘Priority — sorts to top’:‘Mark as Priority’;
 }
 
 function render(){
-var now=new Date(),sc=SEL.size;
-var sorted=getSorted();
+var now=new Date(),sc=SEL.size,sorted=getSorted();
 var h=’’;
-
 h+=’<div class="header"><div class="header-top"><div class="app-title">Route<span>GO</span></div>’;
-h+=’<div class="hright"><button id="syncBtn" class="sync-btn'+(S.syncing?' syncing':'')+'" onclick="pullCloud(false)"><span class="spin'+(S.syncing?' on':'')+'">↻</span> Sync</button>’;
+h+=’<div class="hright"><button id="syncBtn" class="sync-btn" onclick="pullCloud(false)">↻ Sync</button>’;
 h+=’<button class="reset-btn" onclick="doReset()">⚙️</button>’;
-h+=’<div class="date-badge">’+WDAYS[now.getDay()]+’ ‘+MONTHS[now.getMonth()]+’ ‘+now.getDate()+’</div></div></div>’;
+h+=’<div class="date-badge">’+WD[now.getDay()]+’ ‘+MO[now.getMonth()]+’ ‘+now.getDate()+’</div></div></div>’;
 h+=’<div id="syncSt" class="sync-st'+(S.syncErr?' err':'')+'">’+esc(S.syncMsg)+’</div></div>’;
-
 h+=’<div class="tabs"><button class="tab'+(S.tab==='today'?' active':'')+'" onclick="switchTab(\'today\')">Today's Route</button>’;
 h+=’<button class="tab'+(S.tab==='manage'?' active':'')+'" onclick="switchTab(\'manage\')">Manage Locations</button></div>’;
 
@@ -291,25 +281,30 @@ if(S.tab===‘today’){
 h+=’<div class="panel">’;
 if(!S.apiKey){
 h+=’<div class="setup-box"><div class="setup-box-title">☁️ Connect Cloud Sync</div>’;
-h+=’<div class="setup-box-sub">Enter your JSONBin <strong>Master Key</strong> to sync across both phones. Get one free at <strong>jsonbin.io</strong> → API Keys → Master Key. On your 2nd phone also enter the Bin ID shown after connecting.</div>’;
+h+=’<div class="setup-box-sub">Enter your JSONBin <b>Master Key</b> to sync across both phones. Get one free at jsonbin.io → API Keys → Master Key. On your 2nd phone also enter the Bin ID shown after connecting.</div>’;
 h+=’<div class="setup-row"><input class="setup-in" id="akIn" value="'+esc(S.akIn)+'" placeholder="Master Key: $2b$10$..."></div>’;
 h+=’<div class="setup-row"><input class="setup-in" id="biIn" value="'+esc(S.biIn)+'" placeholder="Bin ID (2nd phone only)"><button class="setup-btn" onclick="doConnect()">Connect</button></div></div>’;
 }
-h+=’<div class="route-sum"><div><div class="sum-label">Stops selected</div><div class="sum-count" id="selCount">’+sc+’ <span>stop’+(sc!==1?‘s’:’’)+’</span></div></div>’;
-h+=’<div class="sum-right"><div class="sum-right-lbl">Start from</div><div class="sum-right-val" id="startLbl">’+esc(S.startAddr||‘Current location’)+’</div></div></div>’;
+h+=’<div class="route-sum"><div><div class="sum-label">Stops selected</div>’;
+h+=’<div class="sum-count" id="selCount">’+sc+’ <span>stop’+(sc!==1?‘s’:’’)+’</span></div></div>’;
+h+=’<div class="sum-right"><div class="sum-right-lbl">Start from</div>’;
+h+=’<div class="sum-right-val" id="startLbl">’+esc(S.startAddr||‘Current location’)+’</div></div></div>’;
 h+=’<div class="frm-row" style="margin-bottom:10px"><div class="fld-lbl">Starting address (optional)</div>’;
-h+=’<input class="txt-in" value="'+esc(S.startAddr)+'" oninput="S.startAddr=this.value;var el=document.getElementById(\'startLbl\');if(el)el.textContent=this.value||\'Current location\'" placeholder="Leave blank to use current location"></div>’;
-h+=’<div class="sel-acts"><button class="sel-btn" onclick="selAll()">Select All</button><button class="sel-btn" onclick="selPri()">⭐ Priority</button><button class="sel-btn" onclick="selNone()">Clear All</button></div>’;
-h+=’<input class="srch-in" value="'+esc(S.filter)+'" oninput="S.filter=this.value;renderStopList()" placeholder="🔍 Filter locations...">’;
+h+=’<input class="txt-in" value="'+esc(S.startAddr)+'" oninput="S.startAddr=this.value;var e=document.getElementById(\'startLbl\');if(e)e.textContent=this.value||\'Current location\'" placeholder="Leave blank to use current location"></div>’;
+h+=’<div class="sel-acts"><button class="sel-btn" onclick="selAll()">Select All</button>’;
+h+=’<button class="sel-btn" onclick="selPri()">⭐ Priority</button>’;
+h+=’<button class="sel-btn" onclick="selNone()">Clear All</button></div>’;
+h+=’<input class="srch-in" value="'+esc(S.filter)+'" oninput="S.filter=this.value;renderStopList()" placeholder="&#128269; Filter locations...">’;
 h+=’<div id="stopList" class="stop-list">’+buildStopList(sorted)+’</div>’;
 if(S.showTip){
-h+=’<div class="opt-tip"><span style="font-size:18px;flex-shrink:0">💡</span><div><div class="opt-title">Optimize your route in Maps</div>’;
-h+=’<div class="opt-sub">Once Maps opens, tap <strong>⋯</strong> then <strong>Optimize route</strong> to eliminate backtracking.</div></div>’;
+h+=’<div class="opt-tip"><span style="font-size:18px;flex-shrink:0">💡</span><div>’;
+h+=’<div class="opt-title">Optimize your route in Maps</div>’;
+h+=’<div class="opt-sub">Once Maps opens, tap ⋯ then <b>Optimize route</b> to eliminate backtracking.</div></div>’;
 h+=’<button class="opt-x" onclick="S.showTip=false;this.closest(\'.opt-tip\').remove()">×</button></div>’;
 }
 h+=’</div>’;
 h+=’<button class="fab'+(sc===0?' hidden':'')+'" id="fab" onclick="launchRoute()" style="background:#b84000;color:#fff">’;
-h+=’<span>🗺</span><span>Open in Maps</span><span class="fab-badge">’+sc+’</span></button>’;
+h+=’🗺 Open in Maps <span class="fab-badge">’+sc+’</span></button>’;
 }
 
 if(S.tab===‘manage’){
@@ -317,7 +312,7 @@ h+=’<div class="panel"><div class="sec-lbl">Add New Location</div><div class="
 h+=locFields(‘N’,NF);
 h+=’<button class="add-btn" onclick="doAdd()">+ Add Location</button></div>’;
 h+=’<div class="divider">Saved Locations</div>’;
-h+=’<input class="srch-in" value="'+esc(S.mfilter)+'" oninput="S.mfilter=this.value;renderSavedList()" placeholder="🔍 Search saved locations...">’;
+h+=’<input class="srch-in" value="'+esc(S.mfilter)+'" oninput="S.mfilter=this.value;renderSavedList()" placeholder="&#128269; Search saved locations...">’;
 h+=’<div id="savedList" class="saved-list">’+buildSavedList(sorted)+’</div></div>’;
 }
 
@@ -325,7 +320,8 @@ var editLoc=S.editId?S.locs.find(function(l){return l.id===S.editId;}):null;
 h+=’<div class="modal-bg'+(editLoc?'':' hide')+'" id="modalBg" onclick="if(event.target===this)closeModal()">’;
 h+=’<div class="modal"><div class="modal-handle"></div><div class="modal-title">Edit Location</div>’;
 if(editLoc)h+=locFields(‘E’,EF);
-h+=’<div class="modal-foot"><button class="modal-cancel" onclick="closeModal()">Cancel</button><button class="modal-save" onclick="doSaveEdit()">Save Changes</button></div></div></div>’;
+h+=’<div class="modal-foot"><button class="modal-cancel" onclick="closeModal()">Cancel</button>’;
+h+=’<button class="modal-save" onclick="doSaveEdit()">Save Changes</button></div></div></div>’;
 h+=’<div id="toast" class="toast'+(S.toastShow?' show':'')+'" style="background:'+(S.toastOk?'#16a34a':'#dc2626')+'">’+esc(S.toastMsg)+’</div>’;
 
 document.getElementById(‘root’).innerHTML=h;
@@ -337,21 +333,22 @@ var items=(sorted||getSorted()).filter(function(l){
 if(!f)return true;
 return l.name.toLowerCase().indexOf(f)>=0||l.address.toLowerCase().indexOf(f)>=0||(l.contact||’’).toLowerCase().indexOf(f)>=0;
 });
-if(S.locs.length===0)return ‘<div class="empty"><div class="empty-ico">📍</div><div class="empty-ttl">No locations saved yet</div><div class="empty-sub">Go to <strong>Manage Locations</strong> to add your facilities and clients.</div></div>’;
-if(items.length===0)return ‘<div class="empty"><div class="empty-ico">🔍</div><div class="empty-ttl">No matches</div><div class="empty-sub">Try a different search term.</div></div>’;
+if(!S.locs.length)return ‘<div class="empty"><div class="empty-ico">📍</div><div class="empty-ttl">No locations saved yet</div><div class="empty-sub">Go to <b>Manage Locations</b> to add your facilities and clients.</div></div>’;
+if(!items.length)return ‘<div class="empty"><div class="empty-ico">🔍</div><div class="empty-ttl">No matches</div><div class="empty-sub">Try a different search term.</div></div>’;
 var h=’’;
 items.forEach(function(loc){
-var isSel=SEL.has(loc.id);
+var s=SEL.has(loc.id);
 var vl=loc.lastVisit?‘Visited ‘+fmtDate(loc.lastVisit)+(loc.visitCount>1?’ · ‘+loc.visitCount+‘x’:’’):’’;
-h+=’<div class="stop-card'+(isSel?' sel':'')+(loc.priority?' pri':'')+'" onclick="togSel(\''+loc.id+'\')">’;
-h+=’<div class="chk">’+(isSel?‘✓’:’’)+’</div><div class="sbody">’;
-h+=’<div class="nm-row">’+(loc.priority?’<span>⭐</span>’:’’)+’<div class="snm">’+esc(loc.name)+’</div></div>’;
+h+=’<div class="stop-card'+(s?' sel':'')+(loc.priority?' pri':'')+'" onclick="togSel(\''+loc.id+'\')">’;
+h+=’<div class="chk">’+(s?’✓’:’’)+’</div>’;
+h+=’<div class="sbody"><div class="nm-row">’+(loc.priority?’<span>⭐</span>’:’’)+’<div class="snm">’+esc(loc.name)+’</div></div>’;
 h+=’<div class="sadr">’+esc(loc.address)+’</div>’;
 if(loc.contact)h+=’<div class="scnt">👤 ‘+esc(loc.contact)+’</div>’;
-if(loc.notes)h+=’<div class="snts">📝 ‘+esc(loc.notes)+’</div>’;
+if(loc.notes)h+=’<div class="snts">📋 ‘+esc(loc.notes)+’</div>’;
 h+=’<div class="smeta">’+tagH(loc.category)+dayH(loc.day);
 if(vl)h+=’<span class="svis">’+vl+’</span>’;
-h+=’</div></div><div class="sacts">’;
+h+=’</div></div>’;
+h+=’<div class="sacts">’;
 if(loc.phone||loc.phone2){
 h+=’<div class="cbts">’;
 if(loc.phone){h+=’<a class="ibt" href="tel:'+cp(loc.phone)+'" onclick="event.stopPropagation()">📞</a><a class="ibt" href="sms:'+cp(loc.phone)+'" onclick="event.stopPropagation()">💬</a>’;}
@@ -369,24 +366,25 @@ var items=(sorted||getSorted()).filter(function(l){
 if(!f)return true;
 return l.name.toLowerCase().indexOf(f)>=0||l.address.toLowerCase().indexOf(f)>=0||(l.contact||’’).toLowerCase().indexOf(f)>=0||(l.category||’’).toLowerCase().indexOf(f)>=0||(l.day||’’).toLowerCase().indexOf(f)>=0;
 });
-if(S.locs.length===0)return ‘<div class="empty"><div class="empty-ico">🏥</div><div class="empty-ttl">No locations yet</div><div class="empty-sub">Add your facilities, clients, and regular stops above.</div></div>’;
-if(items.length===0&&S.mfilter)return ‘<div class="empty"><div class="empty-ico">🔍</div><div class="empty-ttl">No matches</div><div class="empty-sub">Try a different search term.</div></div>’;
+if(!S.locs.length)return ‘<div class="empty"><div class="empty-ico">🏥</div><div class="empty-ttl">No locations yet</div><div class="empty-sub">Add your facilities, clients, and regular stops above.</div></div>’;
+if(!items.length&&S.mfilter)return ‘<div class="empty"><div class="empty-ico">🔍</div><div class="empty-ttl">No matches</div><div class="empty-sub">Try a different search term.</div></div>’;
 var h=’’;
 items.forEach(function(loc,i){
-var vl=loc.lastVisit?‘🗓 Last: ‘+fmtDate(loc.lastVisit):’’;
+var vl=loc.lastVisit?’📅 Last: ‘+fmtDate(loc.lastVisit):’’;
 h+=’<div class="saved-card'+(loc.priority?' pc':'')+'"><div class="sc-top">’;
-h+=’<div class="sc-num">’+String(i+1).padStart(2,‘0’)+’</div><div class="sc-info">’;
-h+=’<div class="sc-nmrow">’+(loc.priority?’<span>⭐</span>’:’’)+’<div class="sc-nm">’+esc(loc.name)+’</div></div>’;
+h+=’<div class="sc-num">’+String(i+1).padStart(2,‘0’)+’</div>’;
+h+=’<div class="sc-info"><div class="sc-nmrow">’+(loc.priority?’<span>⭐</span>’:’’)+’<div class="sc-nm">’+esc(loc.name)+’</div></div>’;
 h+=’<div class="sc-adr">’+esc(loc.address)+’</div>’;
 if(loc.contact){
 h+=’<div class="sc-cnt">👤 ‘+esc(loc.contact);
-if(loc.phone)h+=’ · <a href="tel:'+cp(loc.phone)+'" style="color:var(--accent);text-decoration:none">📞</a> <a href="sms:'+cp(loc.phone)+'" style="color:var(--accent);text-decoration:none">💬</a> ‘+esc(loc.phone);
-if(loc.phone2)h+=’ · <a href="tel:'+cp(loc.phone2)+'" style="color:var(--accent);text-decoration:none">📞</a> <a href="sms:'+cp(loc.phone2)+'" style="color:var(--accent);text-decoration:none">💬</a> ‘+esc(loc.phone2);
+if(loc.phone)h+=’ · <a href="tel:'+cp(loc.phone)+'" style="color:#e8590c;text-decoration:none">📞</a> <a href="sms:'+cp(loc.phone)+'" style="color:#e8590c;text-decoration:none">💬</a> ‘+esc(loc.phone);
+if(loc.phone2)h+=’ · <a href="tel:'+cp(loc.phone2)+'" style="color:#e8590c;text-decoration:none">📞</a> <a href="sms:'+cp(loc.phone2)+'" style="color:#e8590c;text-decoration:none">💬</a> ‘+esc(loc.phone2);
 h+=’</div>’;
 }
-if(loc.notes)h+=’<div class="sc-nts">📝 ‘+esc(loc.notes)+’</div>’;
+if(loc.notes)h+=’<div class="sc-nts">📋 ‘+esc(loc.notes)+’</div>’;
 if(loc.day&&loc.day!==‘none’)h+=’<div style="margin-top:4px">’+dayH(loc.day)+’</div>’;
-h+=’</div><div class="sc-btns">’+tagH(loc.category);
+h+=’</div>’;
+h+=’<div class="sc-btns">’+tagH(loc.category);
 h+=’<button class="edit-btn" onclick="openEdit(\''+loc.id+'\')">Edit</button>’;
 h+=’<button class="del-btn" onclick="doDelete(\''+loc.id+'\')">×</button></div></div>’;
 h+=’<div class="sc-foot">’;
@@ -404,16 +402,18 @@ f.className=‘fab’+(SEL.size===0?’ hidden’:’’);
 var b=f.querySelector(’.fab-badge’);if(b)b.textContent=SEL.size;
 var c=document.getElementById(‘selCount’);if(c)c.innerHTML=SEL.size+’ <span>stop’+(SEL.size!==1?‘s’:’’)+’</span>’;
 }
-
 function togSel(id){
 if(SEL.has(id))SEL.delete(id);else SEL.add(id);
 saveSel();
-var card=document.querySelector(’.stop-card[onclick=“togSel('’+id+’')”]’);
-if(card){
+var cards=document.querySelectorAll(’.stop-card’);
+cards.forEach(function(card){
+var oc=card.getAttribute(‘onclick’);
+if(oc&&oc.indexOf(id)>=0){
 var loc=S.locs.find(function(l){return l.id===id;});
 card.className=‘stop-card’+(SEL.has(id)?’ sel’:’’)+(loc&&loc.priority?’ pri’:’’);
-var chk=card.querySelector(’.chk’);if(chk)chk.textContent=SEL.has(id)?‘✓’:’’;
+var chk=card.querySelector(’.chk’);if(chk)chk.innerHTML=SEL.has(id)?’✓’:’’;
 }
+});
 updateFab();
 }
 function selAll(){S.locs.forEach(function(l){SEL.add(l.id);});saveSel();render();}
@@ -433,7 +433,7 @@ if(stops.length>1){S.showTip=true;render();}
 }
 function launchRoute(){
 var stops=S.locs.filter(function(l){return SEL.has(l.id);});
-if(stops.length===0)return;
+if(!stops.length)return;
 if(!S.startAddr&&navigator.geolocation){
 showToast(‘Getting your location…’);
 navigator.geolocation.getCurrentPosition(
@@ -446,19 +446,22 @@ function(){buildAndLaunch(null,null);},
 
 async function doAdd(){
 if(!NF.name.trim()||!NF.address.trim()){showToast(‘Name and address required’,false);return;}
-var loc=Object.assign({},NF,{id:Date.now().toString(),visitCount:0,lastVisit:null});
+var loc=Object.assign({},NF,{id:String(Date.now()),visitCount:0,lastVisit:null});
 S.locs.push(loc);NF=blank();
 await saveSync();showToast(loc.name+’ added!’);
 }
 async function doDelete(id){
 if(!confirm(‘Remove this location?’))return;
-SEL.delete(id);S.locs=S.locs.filter(function(l){return l.id!==id;});
+SEL.delete(id);
+S.locs=S.locs.filter(function(l){return l.id!==id;});
 await saveSync();showToast(‘Location removed’);
 }
 function openEdit(id){
 var loc=S.locs.find(function(l){return l.id===id;});
 if(!loc)return;
-S.editId=id;EF=Object.assign({},blank(),loc,{day:loc.day||‘none’});render();
+S.editId=id;
+EF=Object.assign({},blank(),loc,{day:loc.day||‘none’});
+render();
 }
 function closeModal(){S.editId=null;render();}
 async function doSaveEdit(){
@@ -475,12 +478,15 @@ S.apiKey=key;localStorage.setItem(‘rg_apikey’,key);
 if(bid){S.binId=bid;localStorage.setItem(‘rg_binid’,bid);}
 showToast(‘Connecting…’);
 var pulled=await pullCloud(true);
-if(!pulled)await pushCloud();render();
+if(!pulled)await pushCloud();
+render();
 }
 function doReset(){
 if(!confirm(‘Reset sync credentials? Your cloud data is NOT deleted.’))return;
-S.apiKey=’’;S.binId=’’;localStorage.removeItem(‘rg_apikey’);localStorage.removeItem(‘rg_binid’);
-setStatus(‘Not connected — enter API key above’);showToast(‘Credentials cleared’);render();
+S.apiKey=’’;S.binId=’’;
+localStorage.removeItem(‘rg_apikey’);localStorage.removeItem(‘rg_binid’);
+setStatus(‘Not connected — enter API key above’);
+showToast(‘Credentials cleared’);render();
 }
 function switchTab(t){S.tab=t;hideToast();render();}
 
