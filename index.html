@@ -626,7 +626,7 @@ function App() {
     const loc = { ...newData, id: Date.now().toString(), visitCount: 0, lastVisit: null };
     const next = [...locations, loc];
     await saveAndSync(next);
-    setNewData({ ...BLANK_LOC });
+    setNewData({ name:'', address:'', contact:'', phone:'', phone2:'', category:'facility', notes:'', priority:false, day:'none' });
     showToast(`${loc.name} added!`);
   }
 
