@@ -15,204 +15,205 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
 <style>
   :root {
-    --bg: #ffffff; --surface: #f4f6fb; --surface2: #e8ecf5; --border: #a8b4cc;
-    --accent: #e8590c; --accent2: #f97316; --text: #0f1220; --muted: #3d4966;
-    --green: #16a34a; --red: #dc2626; --gold: #d97706; --radius: 12px;
+    --bg:#ffffff; --surface:#f4f6fb; --surface2:#e8ecf5; --border:#a8b4cc;
+    --accent:#e8590c; --accent2:#f97316; --text:#0f1220; --muted:#3d4966;
+    --green:#16a34a; --red:#dc2626; --gold:#d97706; --radius:12px;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-  body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; min-height: 100vh; max-width: 480px; margin: 0 auto; padding-bottom: 60px; }
-  input, select, button { font-family: 'Syne', sans-serif; }
+  * { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent; }
+  body { background:var(--bg); color:var(--text); font-family:'Syne',sans-serif; min-height:100vh; max-width:480px; margin:0 auto; padding-bottom:80px; }
+  input,select,button { font-family:'Syne',sans-serif; }
 
 /* Header */
-.header { padding: 18px 20px 12px; border-bottom: 2px solid #c0c8dc; position: sticky; top: 0; background: #ffffff; z-index: 100; box-shadow: 0 2px 12px rgba(0,0,0,0.10); }
-.header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2px; }
-.app-title { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; }
-.app-title span { color: var(–accent); }
-.header-right { display: flex; align-items: center; gap: 6px; }
-.date-badge { font-family: ‘DM Mono’, monospace; font-size: 11px; color: var(–muted); background: var(–surface); padding: 4px 10px; border-radius: 20px; border: 1px solid var(–border); }
-.sync-btn { background: #1a2040; border: none; border-radius: 20px; padding: 5px 12px; font-size: 11px; font-weight: 700; color: #fff; cursor: pointer; display: flex; align-items: center; gap: 4px; transition: all 0.15s; }
-.sync-btn:hover { background: var(–accent); color: #fff; }
-.sync-btn.syncing { background: var(–accent); color: #fff; }
-.spin { display: inline-block; }
-.spin.active { animation: spin 0.8s linear infinite; }
-@keyframes spin { to { transform: rotate(360deg); } }
-.reset-btn { background: #1a2040; border: none; border-radius: 20px; padding: 5px 9px; font-size: 13px; cursor: pointer; color: #fff; transition: all 0.15s; }
-.reset-btn:hover { background: var(–accent); }
-.sync-status { font-size: 10px; color: var(–muted); font-family: ‘DM Mono’, monospace; margin-top: 2px; }
-.sync-status.error { color: var(–red); }
+.header { padding:18px 20px 12px; border-bottom:2px solid #c0c8dc; position:sticky; top:0; background:#fff; z-index:100; box-shadow:0 2px 12px rgba(0,0,0,0.10); }
+.header-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:2px; }
+.app-title { font-size:22px; font-weight:800; letter-spacing:-0.5px; }
+.app-title span { color:var(–accent); }
+.header-right { display:flex; align-items:center; gap:6px; }
+.date-badge { font-family:‘DM Mono’,monospace; font-size:11px; color:var(–muted); background:var(–surface); padding:4px 10px; border-radius:20px; border:1px solid var(–border); }
+.sync-btn { background:#1a2040; border:none; border-radius:20px; padding:5px 12px; font-size:11px; font-weight:700; color:#fff; cursor:pointer; display:flex; align-items:center; gap:4px; transition:all 0.15s; }
+.sync-btn:hover { background:var(–accent); }
+.sync-btn.syncing { background:var(–accent); }
+.spin { display:inline-block; }
+.spin.active { animation:spin 0.8s linear infinite; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.reset-btn { background:#1a2040; border:none; border-radius:20px; padding:5px 9px; font-size:13px; cursor:pointer; color:#fff; transition:all 0.15s; }
+.reset-btn:hover { background:var(–accent); }
+.sync-status { font-size:10px; color:var(–muted); font-family:‘DM Mono’,monospace; margin-top:2px; }
+.sync-status.error { color:var(–red); }
 
 /* Tabs */
-.tabs { display: flex; gap: 6px; padding: 12px 20px; border-bottom: 2px solid #c0c8dc; background: #ffffff; }
-.tab { flex: 1; padding: 10px 8px; border-radius: 8px; border: none; background: #1a2040 !important; color: #ffffff !important; font-size: 13px; font-weight: 800; cursor: pointer; transition: all 0.15s; }
-.tab.active { background: #e8590c !important; border: none; color: #ffffff !important; }
+.tabs { display:flex; gap:6px; padding:12px 20px; border-bottom:2px solid #c0c8dc; background:#fff; }
+.tab { flex:1; padding:10px 8px; border-radius:8px; border:none; background:#1a2040 !important; color:#fff !important; font-size:13px; font-weight:800; cursor:pointer; transition:all 0.15s; }
+.tab.active { background:#e8590c !important; }
 
 /* Panel */
-.panel { padding: 14px 20px; }
+.panel { padding:14px 20px; }
 
 /* Setup Banner */
-.setup-banner { background: #fff8f0; border: 1px solid #fbbf99; border-radius: var(–radius); padding: 14px 16px; margin-bottom: 14px; }
-.setup-banner-title { font-size: 13px; font-weight: 700; color: var(–accent); margin-bottom: 4px; }
-.setup-banner-sub { font-size: 12px; color: #92400e; line-height: 1.5; margin-bottom: 10px; }
-.setup-row { display: flex; gap: 8px; margin-bottom: 8px; }
-.setup-row:last-child { margin-bottom: 0; }
-.setup-input { flex: 1; background: var(–surface); border: 1px solid var(–border); border-radius: 8px; padding: 8px 12px; font-family: ‘DM Mono’, monospace; font-size: 12px; color: var(–text); outline: none; }
-.setup-input:focus { border-color: var(–accent); }
-.setup-save-btn { padding: 8px 14px; background: var(–accent); color: #fff; border: none; border-radius: 8px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; }
+.setup-banner { background:#fff8f0; border:1px solid #fbbf99; border-radius:var(–radius); padding:14px 16px; margin-bottom:14px; }
+.setup-banner-title { font-size:13px; font-weight:700; color:var(–accent); margin-bottom:4px; }
+.setup-banner-sub { font-size:12px; color:#92400e; line-height:1.5; margin-bottom:10px; }
+.setup-row { display:flex; gap:8px; margin-bottom:8px; }
+.setup-row:last-child { margin-bottom:0; }
+.setup-input { flex:1; background:#fff; border:1px solid var(–border); border-radius:8px; padding:8px 12px; font-family:‘DM Mono’,monospace; font-size:12px; color:var(–text); outline:none; }
+.setup-input:focus { border-color:var(–accent); }
+.setup-save-btn { padding:8px 14px; background:var(–accent); color:#fff; border:none; border-radius:8px; font-size:12px; font-weight:700; cursor:pointer; white-space:nowrap; }
 
 /* Route Summary */
-.route-summary { background: #f0f4ff; border-radius: var(–radius); padding: 14px 16px; margin-bottom: 12px; border: 2px solid #a8b4cc; display: flex; align-items: center; justify-content: space-between; }
-.route-summary-label { font-size: 12px; color: var(–muted); margin-bottom: 2px; }
-.route-summary-count { font-size: 24px; font-weight: 800; color: var(–accent); font-family: ‘DM Mono’, monospace; }
-.route-summary-count span { font-size: 14px; color: var(–muted); font-weight: 400; }
-.start-right { text-align: right; }
-.start-right-label { font-size: 12px; color: var(–muted); margin-bottom: 2px; }
-.start-right-val { font-size: 13px; color: var(–accent); font-weight: 700; }
+.route-summary { background:#f0f4ff; border-radius:var(–radius); padding:14px 16px; margin-bottom:12px; border:2px solid var(–border); display:flex; align-items:center; justify-content:space-between; }
+.route-summary-label { font-size:12px; color:var(–muted); margin-bottom:2px; }
+.route-summary-count { font-size:24px; font-weight:800; color:var(–accent); font-family:‘DM Mono’,monospace; }
+.route-summary-count span { font-size:14px; color:var(–muted); font-weight:400; }
+.start-right { text-align:right; }
+.start-right-label { font-size:12px; color:var(–muted); margin-bottom:2px; }
+.start-right-val { font-size:13px; color:var(–accent); font-weight:700; }
 
-/* Start input */
-.start-row { margin-bottom: 10px; }
-.field-label { font-size: 11px; font-weight: 600; color: var(–muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
-.text-input { width: 100%; background: #ffffff; border: 2px solid #a8b4cc; border-radius: 8px; padding: 10px 14px; color: var(–text); font-family: ‘DM Mono’, monospace; font-size: 13px; outline: none; transition: border 0.15s; }
-.text-input:focus { border-color: var(–accent); }
-.text-input::placeholder { color: var(–muted); }
+/* Inputs */
+.start-row { margin-bottom:10px; }
+.field-label { font-size:11px; font-weight:600; color:var(–muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:5px; }
+.text-input { width:100%; background:#fff; border:2px solid var(–border); border-radius:8px; padding:10px 14px; color:var(–text); font-family:‘DM Mono’,monospace; font-size:13px; outline:none; transition:border 0.15s; }
+.text-input:focus { border-color:var(–accent); }
+.text-input::placeholder { color:#8090a8; }
+.search-input { width:100%; background:#fff; border:2px solid var(–border); border-radius:8px; padding:10px 14px; color:var(–text); font-family:‘DM Mono’,monospace; font-size:13px; outline:none; margin-bottom:10px; transition:border 0.15s; }
+.search-input:focus { border-color:var(–accent); }
+.search-input::placeholder { color:#8090a8; }
 
 /* Select actions */
-.select-actions { display: flex; gap: 6px; margin-bottom: 10px; }
-.select-btn { flex: 1; padding: 8px 4px; background: #1a2040; border: none; border-radius: 8px; color: #fff; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.15s; }
-.select-btn:hover { background: var(–accent); color: #fff; }
-
-/* Search */
-.search-input { width: 100%; background: #ffffff; border: 2px solid #a8b4cc; border-radius: 8px; padding: 10px 14px; color: var(–text); font-family: ‘DM Mono’, monospace; font-size: 13px; outline: none; margin-bottom: 10px; transition: border 0.15s; }
-.search-input:focus { border-color: var(–accent); }
-.search-input::placeholder { color: var(–muted); }
+.select-actions { display:flex; gap:6px; margin-bottom:10px; }
+.select-btn { flex:1; padding:8px 4px; background:#1a2040; border:none; border-radius:8px; color:#fff; font-size:11px; font-weight:700; cursor:pointer; transition:all 0.15s; }
+.select-btn:hover { background:var(–accent); }
 
 /* Stop cards */
-.stop-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 14px; }
-.stop-card { background: #ffffff; border: 2px solid #a8b4cc; border-radius: var(–radius); padding: 12px 14px; display: flex; align-items: flex-start; gap: 12px; cursor: pointer; transition: all 0.15s; border-left: 4px solid transparent; user-select: none; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-.stop-card:active { transform: scale(0.985); }
-.stop-card.selected { border-color: var(–accent); background: rgba(232,89,12,0.14); box-shadow: 0 0 0 2px var(–accent); }
-.stop-card.priority { border-left-color: var(–gold); }
-.stop-card.selected.priority { border-color: var(–accent); border-left-color: var(–accent); }
-.stop-check { width: 24px; height: 24px; border-radius: 50%; border: 2.5px solid #7080a0; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.15s; font-size: 13px; font-weight: 900; margin-top: 1px; }
-.stop-card.selected .stop-check { background: var(–accent); border-color: var(–accent); color: #fff; font-size: 13px; font-weight: 800; }
-.stop-body { flex: 1; min-width: 0; }
-.stop-name-row { display: flex; align-items: center; gap: 5px; margin-bottom: 2px; }
-.stop-name { font-size: 15px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.stop-addr { font-size: 11px; color: var(–muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-family: ‘DM Mono’, monospace; margin-bottom: 2px; }
-.stop-contact-line { font-size: 11px; color: var(–muted); margin-bottom: 2px; }
-.stop-notes-line { font-size: 11px; color: var(–accent); font-style: italic; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px; }
-.stop-meta { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.stop-visited { font-size: 10px; color: var(–muted); font-family: ‘DM Mono’, monospace; }
-.stop-actions { display: flex; flex-direction: column; align-items: flex-end; gap: 5px; flex-shrink: 0; }
-.contact-btns { display: flex; gap: 4px; }
-.icon-btn { font-size: 18px; background: none; border: none; cursor: pointer; padding: 2px; line-height: 1; text-decoration: none; display: inline-block; }
+.stop-list { display:flex; flex-direction:column; gap:8px; margin-bottom:14px; }
+.stop-card { background:#fff; border:2px solid var(–border); border-radius:var(–radius); padding:12px 14px; display:flex; align-items:flex-start; gap:12px; cursor:pointer; transition:all 0.15s; border-left:4px solid transparent; user-select:none; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+.stop-card:active { transform:scale(0.985); }
+.stop-card.selected { border-color:var(–accent); background:rgba(232,89,12,0.05); box-shadow:0 0 0 2px var(–accent); }
+.stop-card.priority { border-left-color:var(–gold); }
+.stop-card.selected.priority { border-color:var(–accent); border-left-color:var(–accent); }
+.stop-check { width:24px; height:24px; border-radius:50%; border:2.5px solid #7080a0; display:flex; align-items:center; justify-content:center; flex-shrink:0; transition:all 0.15s; font-size:13px; font-weight:900; margin-top:1px; }
+.stop-card.selected .stop-check { background:var(–accent); border-color:var(–accent); color:#fff; }
+.stop-body { flex:1; min-width:0; }
+.stop-name-row { display:flex; align-items:center; gap:5px; margin-bottom:2px; }
+.stop-name { font-size:15px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.stop-addr { font-size:11px; color:var(–muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-family:‘DM Mono’,monospace; margin-bottom:2px; }
+.stop-contact-line { font-size:11px; color:var(–muted); margin-bottom:2px; }
+.stop-notes-line { font-size:11px; color:var(–accent); font-style:italic; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:4px; }
+.stop-meta { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.stop-visited { font-size:10px; color:var(–muted); font-family:‘DM Mono’,monospace; }
+.stop-actions { display:flex; flex-direction:column; align-items:flex-end; gap:5px; flex-shrink:0; }
+.contact-btns { display:flex; gap:4px; }
+.icon-btn { font-size:18px; background:none; border:none; cursor:pointer; padding:2px; line-height:1; text-decoration:none; display:inline-block; }
 
 /* Tags */
-.tag { font-size: 10px; padding: 2px 8px; border-radius: 20px; border: 1px solid; flex-shrink: 0; }
-.tag-facility { color: #1d6fb8; border-color: #bdd6f0; background: #e8f2fb; }
-.tag-client   { color: #6d3bbf; border-color: #d4bbf5; background: #f0e8fd; }
-.tag-office   { color: #166534; border-color: #a7d9b8; background: #dcfce7; }
-.tag-other    { color: #c2410c; border-color: #fbbf99; background: #fff0e6; }
-.day-mon { color: #0369a1; border-color: #7dd3fc; background: #e0f2fe; }
-.day-tue { color: #7c3aed; border-color: #c4b5fd; background: #f3f0ff; }
-.day-wed { color: #065f46; border-color: #6ee7b7; background: #d1fae5; }
-.day-thu { color: #b45309; border-color: #fcd34d; background: #fef9c3; }
-.day-fri { color: #be185d; border-color: #f9a8d4; background: #fce7f3; }
-.day-sat  { color: #0f766e; border-color: #5eead4; background: #f0fdfa; }
-.day-none { color: #6b7280; border-color: #d1d5db; background: #f3f4f6; }
-.day-tag { font-size: 10px; padding: 2px 8px; border-radius: 20px; border: 1px solid; flex-shrink: 0; font-weight: 700; cursor: pointer; transition: all 0.15s; }
-.day-tag:hover { opacity: 0.8; }
+.tag { font-size:10px; padding:2px 8px; border-radius:20px; border:1px solid; flex-shrink:0; }
+.tag-facility { color:#1d6fb8; border-color:#bdd6f0; background:#e8f2fb; }
+.tag-client   { color:#6d3bbf; border-color:#d4bbf5; background:#f0e8fd; }
+.tag-office   { color:#166534; border-color:#a7d9b8; background:#dcfce7; }
+.tag-other    { color:#c2410c; border-color:#fbbf99; background:#fff0e6; }
+.day-tag { font-size:10px; padding:2px 8px; border-radius:20px; border:1px solid; flex-shrink:0; font-weight:700; }
+.day-mon { color:#0369a1; border-color:#7dd3fc; background:#e0f2fe; }
+.day-tue { color:#7c3aed; border-color:#c4b5fd; background:#f3f0ff; }
+.day-wed { color:#065f46; border-color:#6ee7b7; background:#d1fae5; }
+.day-thu { color:#b45309; border-color:#fcd34d; background:#fef9c3; }
+.day-fri { color:#be185d; border-color:#f9a8d4; background:#fce7f3; }
+.day-sat { color:#0f766e; border-color:#5eead4; background:#f0fdfa; }
+.day-none { color:#6b7280; border-color:#d1d5db; background:#f3f4f6; }
 
-/* Go button */
-.go-btn { width: 100%; padding: 18px; background: var(–accent); color: #fff; border: none; border-radius: var(–radius); font-size: 16px; font-weight: 800; cursor: pointer; letter-spacing: 0.5px; transition: all 0.15s; display: flex; align-items: center; justify-content: center; gap: 10px; }
-.go-btn:active { transform: scale(0.98); background: var(–accent2); }
-.go-btn:disabled { background: var(–surface2); color: var(–muted); cursor: not-allowed; transform: none; border: 1px solid var(–border); }
-.fab { position: fixed; bottom: 24px; right: 20px; z-index: 150; display: flex; align-items: center; gap: 8px; padding: 16px 22px; background: #b84000; color: #fff; border: none; border-radius: 50px; font-size: 15px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 24px rgba(140,50,0,0.55); transition: all 0.2s cubic-bezier(.34,1.56,.64,1); letter-spacing: 0.3px; }
-.fab:active { transform: scale(0.95); background: var(–accent2); }
-.fab.hidden { transform: translateY(100px); opacity: 0; pointer-events: none; }
-.fab-badge { background: #fff; color: var(–accent); border-radius: 50%; width: 20px; height: 20px; font-size: 11px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+/* Inactive */
+.inactive-card { opacity:0.55; }
+.inactive-toggle { display:flex; align-items:center; justify-content:space-between; padding:10px 14px; background:#fff; border:2px solid var(–border); border-radius:8px; margin-bottom:10px; cursor:pointer; margin-top:10px; }
+.inactive-toggle-label { font-size:13px; font-weight:700; color:#3d4966; }
+.inactive-count { font-size:11px; font-weight:700; background:#fee2e2; color:#dc2626; border-radius:20px; padding:2px 8px; }
+
+/* FAB */
+.fab { position:fixed; bottom:24px; right:20px; z-index:150; display:flex; align-items:center; gap:8px; padding:16px 22px; background:#b84000; color:#fff; border:none; border-radius:50px; font-size:15px; font-weight:800; cursor:pointer; box-shadow:0 6px 24px rgba(140,50,0,0.55); transition:all 0.2s cubic-bezier(.34,1.56,.64,1); letter-spacing:0.3px; }
+.fab:active { transform:scale(0.95); }
+.fab.hidden { transform:translateY(100px); opacity:0; pointer-events:none; }
+.fab-badge { background:#fff; color:#b84000; border-radius:50%; width:20px; height:20px; font-size:11px; font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 
 /* Optimize tip */
-.optimize-tip { display: flex; align-items: flex-start; gap: 10px; background: #fffbeb; border: 1px solid #fcd34d; border-radius: var(–radius); padding: 12px 14px; margin-top: 10px; }
-.optimize-tip-icon { font-size: 18px; flex-shrink: 0; }
-.optimize-tip-title { font-size: 13px; font-weight: 700; color: var(–gold); margin-bottom: 2px; }
-.optimize-tip-sub { font-size: 12px; color: #92400e; line-height: 1.4; }
-.tip-close { background: none; border: none; color: #92400e; font-size: 20px; cursor: pointer; padding: 0 2px; line-height: 1; flex-shrink: 0; margin-left: auto; opacity: 0.6; }
+.optimize-tip { display:flex; align-items:flex-start; gap:10px; background:#fffbeb; border:1px solid #fcd34d; border-radius:var(–radius); padding:12px 14px; margin-top:10px; }
+.optimize-tip-icon { font-size:18px; flex-shrink:0; }
+.optimize-tip-title { font-size:13px; font-weight:700; color:var(–gold); margin-bottom:2px; }
+.optimize-tip-sub { font-size:12px; color:#92400e; line-height:1.4; }
+.tip-close { background:none; border:none; color:#92400e; font-size:20px; cursor:pointer; padding:0 2px; line-height:1; flex-shrink:0; margin-left:auto; opacity:0.6; }
 
 /* Empty state */
-.empty-state { text-align: center; padding: 40px 20px; color: var(–muted); }
-.empty-icon { font-size: 36px; margin-bottom: 12px; }
-.empty-title { font-size: 16px; font-weight: 700; color: var(–text); margin-bottom: 6px; }
-.empty-sub { font-size: 13px; line-height: 1.5; }
+.empty-state { text-align:center; padding:40px 20px; color:var(–muted); }
+.empty-icon { font-size:36px; margin-bottom:12px; }
+.empty-title { font-size:16px; font-weight:700; color:var(–text); margin-bottom:6px; }
+.empty-sub { font-size:13px; line-height:1.5; }
 
 /* Section / Divider */
-.section-label { font-size: 11px; font-weight: 600; color: var(–muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
-.divider { display: flex; align-items: center; gap: 10px; margin: 8px 0 14px; color: var(–muted); font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; }
-.divider::before, .divider::after { content: ‘’; flex: 1; height: 1px; background: var(–border); }
+.section-label { font-size:11px; font-weight:600; color:var(–muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; }
+.divider { display:flex; align-items:center; gap:10px; margin:8px 0 14px; color:var(–muted); font-size:11px; font-weight:600; letter-spacing:1px; text-transform:uppercase; }
+.divider::before,.divider::after { content:’’; flex:1; height:1px; background:var(–border); }
 
 /* Add form */
-.add-form { background: #ffffff; border: 2px solid #a8b4cc; border-radius: var(–radius); padding: 16px; margin-bottom: 20px; box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
-.form-row { margin-bottom: 10px; }
-.form-label { font-size: 11px; font-weight: 600; color: var(–muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 5px; display: block; }
-.form-input { width: 100%; background: #ffffff; border: 2px solid #a8b4cc; border-radius: 8px; padding: 10px 14px; color: var(–text); font-family: ‘DM Mono’, monospace; font-size: 13px; outline: none; transition: border 0.15s; }
-.form-input:focus { border-color: var(–accent); }
-.form-input::placeholder { color: #8090a8; }
-.form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px; }
-.priority-toggle { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: #ffffff; border: 2px solid #a8b4cc; border-radius: 8px; cursor: pointer; transition: all 0.15s; margin-bottom: 10px; }
-.priority-toggle.on { background: #fef3c7; border-color: #fcd34d; }
-.priority-label { font-size: 13px; font-weight: 600; color: var(–muted); }
-.priority-toggle.on .priority-label { color: var(–gold); }
-.add-btn { width: 100%; padding: 16px; background: #e8590c !important; color: #ffffff !important; border: none; border-radius: 8px; font-size: 16px; font-weight: 800; cursor: pointer; transition: all 0.15s; letter-spacing: 0.3px; }
-.add-btn:hover { background: var(–accent2); }
+.add-form { background:#fff; border:2px solid var(–border); border-radius:var(–radius); padding:16px; margin-bottom:20px; box-shadow:0 2px 12px rgba(0,0,0,0.08); }
+.form-row { margin-bottom:10px; }
+.form-label { font-size:11px; font-weight:600; color:var(–muted); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:5px; display:block; }
+.form-input { width:100%; background:#fff; border:2px solid var(–border); border-radius:8px; padding:10px 14px; color:var(–text); font-family:‘DM Mono’,monospace; font-size:13px; outline:none; transition:border 0.15s; }
+.form-input:focus { border-color:var(–accent); }
+.form-input::placeholder { color:#8090a8; }
+.form-row-2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:10px; }
+.priority-toggle { display:flex; align-items:center; gap:8px; padding:10px 14px; background:#fff; border:2px solid var(–border); border-radius:8px; cursor:pointer; transition:all 0.15s; margin-bottom:10px; }
+.priority-toggle.on { background:#fef3c7; border-color:#fcd34d; }
+.priority-label { font-size:13px; font-weight:600; color:var(–muted); }
+.priority-toggle.on .priority-label { color:var(–gold); }
+.add-btn { width:100%; padding:16px; background:#e8590c !important; color:#fff !important; border:none; border-radius:8px; font-size:16px; font-weight:800; cursor:pointer; transition:all 0.15s; letter-spacing:0.3px; }
+.add-btn:hover { background:var(–accent2) !important; }
 
 /* Saved cards */
-.saved-list { display: flex; flex-direction: column; gap: 8px; }
-.saved-card { background: #ffffff; border: 2px solid #a8b4cc; border-radius: var(–radius); padding: 13px 14px; border-left: 4px solid transparent; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
-.saved-card.priority-card { border-left-color: var(–gold); }
-.saved-card-top { display: flex; align-items: flex-start; gap: 10px; }
-.saved-num { font-family: ‘DM Mono’, monospace; font-size: 11px; color: var(–muted); min-width: 20px; margin-top: 2px; flex-shrink: 0; }
-.saved-info { flex: 1; min-width: 0; }
-.saved-name-row { display: flex; align-items: center; gap: 6px; margin-bottom: 2px; }
-.saved-name { font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.saved-addr { font-size: 11px; color: var(–muted); font-family: ‘DM Mono’, monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
-.saved-contact { font-size: 11px; color: var(–muted); margin-bottom: 2px; }
-.saved-notes { font-size: 11px; color: var(–accent); font-style: italic; }
-.saved-btns { display: flex; gap: 6px; align-items: center; flex-shrink: 0; }
-.edit-btn { background: #1a2040; border: none; border-radius: 7px; padding: 5px 12px; font-size: 12px; font-weight: 700; color: #fff; cursor: pointer; transition: all 0.15s; }
-.edit-btn:hover { background: var(–accent); color: #fff; }
-.delete-btn { background: none; border: none; color: #8090b0; cursor: pointer; font-size: 20px; padding: 2px 4px; line-height: 1; transition: color 0.15s; font-weight: 900; }
-.delete-btn:hover { color: var(–red); }
-.saved-footer { display: flex; align-items: center; gap: 8px; margin-top: 8px; padding-top: 8px; border-top: 1px solid var(–border); }
-.visit-stat { font-size: 10px; color: var(–muted); font-family: ‘DM Mono’, monospace; }
+.saved-list { display:flex; flex-direction:column; gap:8px; }
+.saved-card { background:#fff; border:2px solid var(–border); border-radius:var(–radius); padding:13px 14px; border-left:4px solid transparent; box-shadow:0 1px 4px rgba(0,0,0,0.06); }
+.saved-card.priority-card { border-left-color:var(–gold); }
+.saved-card.inactive-card { opacity:0.55; }
+.saved-card-top { display:flex; align-items:flex-start; gap:10px; }
+.saved-num { font-family:‘DM Mono’,monospace; font-size:11px; color:var(–muted); min-width:20px; margin-top:2px; flex-shrink:0; }
+.saved-info { flex:1; min-width:0; }
+.saved-name-row { display:flex; align-items:center; gap:6px; margin-bottom:2px; }
+.saved-name { font-size:14px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.saved-addr { font-size:11px; color:var(–muted); font-family:‘DM Mono’,monospace; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:2px; }
+.saved-contact { font-size:11px; color:var(–muted); margin-bottom:2px; }
+.saved-notes { font-size:11px; color:var(–accent); font-style:italic; margin-bottom:2px; }
+.saved-btns { display:flex; gap:5px; align-items:center; flex-shrink:0; flex-wrap:wrap; justify-content:flex-end; }
+.saved-tag { font-size:10px; padding:2px 8px; border-radius:20px; border:1px solid; }
+.edit-btn { background:#1a2040; border:none; border-radius:7px; padding:5px 10px; font-size:12px; font-weight:700; color:#fff; cursor:pointer; transition:all 0.15s; }
+.edit-btn:hover { background:var(–accent); }
+.deactivate-btn { background:#fee2e2; border:none; border-radius:7px; padding:5px 10px; font-size:12px; font-weight:700; color:#dc2626; cursor:pointer; transition:all 0.15s; }
+.deactivate-btn:hover { background:#fca5a5; }
+.restore-btn { background:#16a34a; border:none; border-radius:7px; padding:5px 10px; font-size:12px; font-weight:700; color:#fff; cursor:pointer; transition:all 0.15s; }
+.restore-btn:hover { background:#15803d; }
+.delete-btn { background:none; border:none; color:#8090b0; cursor:pointer; font-size:20px; padding:2px 4px; line-height:1; transition:color 0.15s; font-weight:900; }
+.delete-btn:hover { color:var(–red); }
+.saved-footer { display:flex; align-items:center; gap:8px; margin-top:8px; padding-top:8px; border-top:1px solid var(–border); }
+.visit-stat { font-size:10px; color:var(–muted); font-family:‘DM Mono’,monospace; }
 
 /* Modal */
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 200; display: flex; align-items: flex-end; justify-content: center; transition: opacity 0.2s; }
-.modal-overlay.hidden { opacity: 0; pointer-events: none; display: none; }
-.modal { background: var(–surface); border-radius: 20px 20px 0 0; padding: 20px 20px 40px; width: 100%; max-width: 480px; transform: translateY(0); transition: transform 0.25s cubic-bezier(.34,1.2,.64,1); max-height: 90vh; overflow-y: auto; }
-.modal-overlay.hidden .modal { transform: translateY(100%); }
-.modal-handle { width: 40px; height: 4px; background: var(–border); border-radius: 2px; margin: 0 auto 16px; }
-.modal-title { font-size: 17px; font-weight: 800; margin-bottom: 16px; }
-.modal-footer { display: flex; gap: 8px; margin-top: 16px; }
-.modal-save { flex: 1; padding: 13px; background: var(–accent); color: #fff; border: none; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; }
-.modal-cancel { padding: 13px 18px; background: var(–surface2); color: var(–muted); border: 1px solid var(–border); border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; }
+.modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.45); z-index:200; display:flex; align-items:flex-end; justify-content:center; transition:opacity 0.2s; }
+.modal-overlay.hidden { opacity:0; pointer-events:none; display:none; }
+.modal { background:#fff; border-radius:20px 20px 0 0; padding:20px 20px 40px; width:100%; max-width:480px; transition:transform 0.25s cubic-bezier(.34,1.2,.64,1); max-height:90vh; overflow-y:auto; }
+.modal-handle { width:40px; height:4px; background:var(–border); border-radius:2px; margin:0 auto 16px; }
+.modal-title { font-size:17px; font-weight:800; margin-bottom:16px; }
+.modal-footer { display:flex; gap:8px; margin-top:16px; }
+.modal-save { flex:1; padding:13px; background:var(–accent); color:#fff; border:none; border-radius:10px; font-size:15px; font-weight:700; cursor:pointer; }
+.modal-cancel { padding:13px 18px; background:var(–surface2); color:var(–muted); border:1px solid var(–border); border-radius:10px; font-size:15px; font-weight:700; cursor:pointer; }
 
 /* Toast */
-.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); padding: 10px 20px; border-radius: 20px; font-size: 13px; font-weight: 700; transition: transform 0.3s cubic-bezier(.34,1.56,.64,1); z-index: 999; white-space: nowrap; color: #fff; pointer-events: none; }
-.toast.show { transform: translateX(-50%) translateY(0); }
+.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(80px); padding:10px 20px; border-radius:20px; font-size:13px; font-weight:700; transition:transform 0.3s cubic-bezier(.34,1.56,.64,1); z-index:999; white-space:nowrap; color:#fff; pointer-events:none; }
+.toast.show { transform:translateX(-50%) translateY(0); }
 </style>
 
 </head>
 <body>
 <div id="root"></div>
-
 <script>
-// Generate home screen icon
 (function(){
-  var c = document.createElement('canvas'); c.width = 180; c.height = 180;
-  var x = c.getContext('2d');
-  var g = x.createLinearGradient(0,0,180,180);
-  g.addColorStop(0,'#ff6a1a'); g.addColorStop(1,'#c44a00');
-  x.fillStyle = g;
-  x.beginPath(); x.moveTo(36,0); x.lineTo(144,0); x.quadraticCurveTo(180,0,180,36);
+  var c=document.createElement('canvas'); c.width=180; c.height=180;
+  var x=c.getContext('2d');
+  var g=x.createLinearGradient(0,0,180,180); g.addColorStop(0,'#ff6a1a'); g.addColorStop(1,'#c44a00');
+  x.fillStyle=g; x.beginPath(); x.moveTo(36,0); x.lineTo(144,0); x.quadraticCurveTo(180,0,180,36);
   x.lineTo(180,144); x.quadraticCurveTo(180,180,144,180); x.lineTo(36,180);
   x.quadraticCurveTo(0,180,0,144); x.lineTo(0,36); x.quadraticCurveTo(0,0,36,0); x.fill();
   x.fillStyle='rgba(255,255,255,0.15)'; x.beginPath(); x.arc(90,72,44,0,Math.PI*2); x.fill();
@@ -221,685 +222,634 @@
   x.beginPath(); x.moveTo(90,90); x.lineTo(90,116); x.stroke();
   x.fillStyle='#fff'; x.beginPath(); x.arc(90,68,8,0,Math.PI*2); x.fill();
   x.font='bold 26px sans-serif'; x.textAlign='center'; x.fillText('RouteGO',90,152);
-  document.getElementById('appIcon').href = c.toDataURL('image/png');
+  document.getElementById('appIcon').href=c.toDataURL('image/png');
 })();
 </script>
-
 <script type="text/babel">
 const { useState, useEffect, useCallback, useRef } = React;
 
-// ── Constants ────────────────────────────────────────────────────────────────
-const JSONBIN_BASE = 'https://api.jsonbin.io/v3';
-const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-const TAG_CLASS = { facility:'tag-facility', client:'tag-client', office:'tag-office', other:'tag-other' };
-const TAG_LABEL = { facility:'Facility', client:'Client', office:'Office', other:'Other' };
-
+const JSONBIN_BASE = ‘https://api.jsonbin.io/v3’;
+const DAYS = [‘Sun’,‘Mon’,‘Tue’,‘Wed’,‘Thu’,‘Fri’,‘Sat’];
+const MONTHS = [‘Jan’,‘Feb’,‘Mar’,‘Apr’,‘May’,‘Jun’,‘Jul’,‘Aug’,‘Sep’,‘Oct’,‘Nov’,‘Dec’];
+const TAG_CLASS = { facility:‘tag-facility’, client:‘tag-client’, office:‘tag-office’, other:‘tag-other’ };
+const TAG_LABEL = { facility:‘Facility’, client:‘Client’, office:‘Office’, other:‘Other’ };
 const DAYS_OF_WEEK = [
-  { key: 'mon', label: 'Mon' },
-  { key: 'tue', label: 'Tue' },
-  { key: 'wed', label: 'Wed' },
-  { key: 'thu', label: 'Thu' },
-  { key: 'fri', label: 'Fri' },
-  { key: 'sat', label: 'Sat' },
+{ key:‘mon’, label:‘Mon’ },
+{ key:‘tue’, label:‘Tue’ },
+{ key:‘wed’, label:‘Wed’ },
+{ key:‘thu’, label:‘Thu’ },
+{ key:‘fri’, label:‘Fri’ },
+{ key:‘sat’, label:‘Sat’ },
 ];
-const DAY_COLORS = { mon:'day-mon', tue:'day-tue', wed:'day-wed', thu:'day-thu', fri:'day-fri', sat:'day-sat', none:'day-none' };
+const DAY_COLORS = { mon:‘day-mon’, tue:‘day-tue’, wed:‘day-wed’, thu:‘day-thu’, fri:‘day-fri’, sat:‘day-sat’, none:‘day-none’ };
+const BLANK_LOC = { name:’’, address:’’, contact:’’, phone:’’, phone2:’’, category:‘facility’, notes:’’, priority:false, day:‘none’, inactive:false };
 
 function formatPhone(val) {
-  const digits = val.replace(/\D/g, '').slice(0, 10);
-  if (digits.length <= 3) return digits;
-  if (digits.length <= 6) return `(${digits.slice(0,3)}) ${digits.slice(3)}`;
-  return `(${digits.slice(0,3)}) ${digits.slice(3,6)}-${digits.slice(6)}`;
+const d = val.replace(/\D/g,’’).slice(0,10);
+if (d.length <= 3) return d;
+if (d.length <= 6) return `(${d.slice(0,3)}) ${d.slice(3)}`;
+return `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
 }
-
 function fmtDate(iso) {
-  if (!iso) return null;
-  const d = new Date(iso);
-  return `${d.getMonth()+1}/${d.getDate()}/${String(d.getFullYear()).slice(2)}`;
+if (!iso) return null;
+const d = new Date(iso);
+return `${d.getMonth()+1}/${d.getDate()}/${String(d.getFullYear()).slice(2)}`;
 }
 function fmtTime(d) {
-  let h = d.getHours(), m = d.getMinutes(), a = h >= 12 ? 'pm' : 'am';
-  h = h % 12 || 12;
-  return `${h}:${String(m).padStart(2,'0')}${a}`;
+let h=d.getHours(), m=d.getMinutes(), a=h>=12?‘pm’:‘am’;
+h=h%12||12;
+return `${h}:${String(m).padStart(2,'0')}${a}`;
 }
-function cleanPhone(p) { return p.replace(/\D/g,''); }
+function cleanPhone(p) { return p.replace(/\D/g,’’); }
 
 // ── Toast ────────────────────────────────────────────────────────────────────
 function Toast({ message, type, visible }) {
-  return (
-    <div className={`toast ${visible ? 'show' : ''}`}
-      style={{ background: type === 'error' ? 'var(--red)' : 'var(--green)' }}>
-      {message}
-    </div>
-  );
+return (
+<div className={`toast ${visible?'show':''}`} style={{background:type===‘error’?‘var(–red)’:‘var(–green)’}}>
+{message}
+</div>
+);
 }
 
 // ── Tag ──────────────────────────────────────────────────────────────────────
 function Tag({ cat }) {
-  return <span className={`tag ${TAG_CLASS[cat] || 'tag-other'}`}>{TAG_LABEL[cat] || cat}</span>;
+return <span className={`tag ${TAG_CLASS[cat]||'tag-other'}`}>{TAG_LABEL[cat]||cat}</span>;
+}
+
+// ── DayTag ───────────────────────────────────────────────────────────────────
+function DayTag({ day }) {
+if (!day || day === ‘none’) return null;
+const d = DAYS_OF_WEEK.find(d => d.key === day);
+if (!d) return null;
+return <span className={`day-tag ${DAY_COLORS[day]||'day-none'}`}>{d.label}</span>;
 }
 
 // ── Priority Toggle ──────────────────────────────────────────────────────────
 function PriorityToggle({ value, onChange }) {
-  return (
-    <div className={`priority-toggle ${value ? 'on' : ''}`} onClick={() => onChange(!value)}>
-      <span>{value ? '⭐' : '☆'}</span>
-      <span className="priority-label">{value ? 'Priority — sorts to top' : 'Mark as Priority'}</span>
-    </div>
-  );
+return (
+<div className={`priority-toggle ${value?'on':''}`} onClick={() => onChange(!value)}>
+<span>{value?‘⭐’:‘☆’}</span>
+<span className="priority-label">{value?‘Priority — sorts to top’:‘Mark as Priority’}</span>
+</div>
+);
 }
 
 // ── Location Form Fields ─────────────────────────────────────────────────────
 function LocationFields({ data, onChange }) {
-  const f = (field) => (e) => onChange({ ...data, [field]: e.target.value });
-  const fPhone = (field) => (e) => onChange({ ...data, [field]: formatPhone(e.target.value) });
-  return (
-    <>
-      <div className="form-row">
-        <label className="form-label">Name / Label</label>
-        <input className="form-input" value={data.name} onChange={f('name')} placeholder="e.g. Sunrise Senior Living" />
-      </div>
-      <div className="form-row">
-        <label className="form-label">Full Address</label>
-        <input className="form-input" value={data.address} onChange={f('address')} placeholder="123 Main St, Katy TX 77449" />
-      </div>
-      <div className="form-row">
-        <label className="form-label">Contact Name</label>
-        <input className="form-input" value={data.contact} onChange={f('contact')} placeholder="Jane Smith" />
-      </div>
-      <div className="form-row-2">
-        <div>
-          <label className="form-label">Phone 1</label>
-          <input className="form-input" type="tel" value={data.phone} onChange={fPhone('phone')} placeholder="(281) 555-0100" />
-        </div>
-        <div>
-          <label className="form-label">Phone 2</label>
-          <input className="form-input" type="tel" value={data.phone2 || ''} onChange={fPhone('phone2')} placeholder="(281) 555-0101" />
-        </div>
-      </div>
-      <div className="form-row-2">
-        <div>
-          <label className="form-label">Category</label>
-          <select className="form-input" value={data.category} onChange={f('category')}>
-            <option value="facility">Facility</option>
-            <option value="client">Client</option>
-            <option value="office">Office</option>
-            <option value="other">Other</option>
-          </select>
-        </div>
-        <div>
-          <label className="form-label">Notes</label>
-          <input className="form-input" value={data.notes} onChange={f('notes')} placeholder="Ask for Linda..." />
-        </div>
-      </div>
-      <div className="form-row">
-        <label className="form-label">Scheduled Day</label>
-        <select className="form-input" value={data.day || 'none'} onChange={(e) => onChange({ ...data, day: e.target.value })}>
-          <option value="none">No day assigned</option>
-          {DAYS_OF_WEEK.map(d => <option key={d.key} value={d.key}>{d.label}</option>)}
-        </select>
-      </div>
-      <PriorityToggle value={data.priority} onChange={(v) => onChange({ ...data, priority: v })} />
-    </>
-  );
+const f = field => e => onChange({…data, [field]: e.target.value});
+const fPhone = field => e => onChange({…data, [field]: formatPhone(e.target.value)});
+return (
+<>
+<div className="form-row">
+<label className="form-label">Name / Label</label>
+<input className=“form-input” value={data.name} onChange={f(‘name’)} placeholder=“e.g. Sunrise Senior Living” />
+</div>
+<div className="form-row">
+<label className="form-label">Full Address</label>
+<input className=“form-input” value={data.address} onChange={f(‘address’)} placeholder=“123 Main St, Katy TX 77449” />
+</div>
+<div className="form-row">
+<label className="form-label">Contact Name</label>
+<input className=“form-input” value={data.contact} onChange={f(‘contact’)} placeholder=“Jane Smith” />
+</div>
+<div className="form-row-2">
+<div>
+<label className="form-label">Phone 1</label>
+<input className=“form-input” type=“tel” value={data.phone} onChange={fPhone(‘phone’)} placeholder=”(281) 555-0100” />
+</div>
+<div>
+<label className="form-label">Phone 2</label>
+<input className=“form-input” type=“tel” value={data.phone2||’’} onChange={fPhone(‘phone2’)} placeholder=”(281) 555-0101” />
+</div>
+</div>
+<div className="form-row-2">
+<div>
+<label className="form-label">Category</label>
+<select className=“form-input” value={data.category} onChange={f(‘category’)}>
+<option value="facility">Facility</option>
+<option value="client">Client</option>
+<option value="office">Office</option>
+<option value="other">Other</option>
+</select>
+</div>
+<div>
+<label className="form-label">Notes</label>
+<input className=“form-input” value={data.notes} onChange={f(‘notes’)} placeholder=“Ask for Linda…” />
+</div>
+</div>
+<div className="form-row">
+<label className="form-label">Scheduled Day</label>
+<select className=“form-input” value={data.day||‘none’} onChange={f(‘day’)}>
+<option value="none">No day assigned</option>
+{DAYS_OF_WEEK.map(d => <option key={d.key} value={d.key}>{d.label}</option>)}
+</select>
+</div>
+<PriorityToggle value={data.priority} onChange={v => onChange({…data, priority:v})} />
+</>
+);
 }
-
-const BLANK_LOC = { name:'', address:'', contact:'', phone:'', phone2:'', category:'facility', notes:'', priority:false, day:'none' };
 
 // ── Edit Modal ───────────────────────────────────────────────────────────────
 function EditModal({ loc, onSave, onClose }) {
-  const [data, setData] = useState(loc ? { ...loc } : BLANK_LOC);
-  useEffect(() => { if (loc) setData({ ...loc, day: loc.day || 'none' }); }, [loc]);
-  const hidden = !loc;
+const [data, setData] = useState(BLANK_LOC);
+useEffect(() => {
+if (loc) setData({…BLANK_LOC, …loc, day: loc.day||‘none’});
+}, [loc]);
 
-  function handleSave() {
-    if (!data.name.trim() || !data.address.trim()) return;
-    onSave(data);
-  }
+function handleSave() {
+if (!data.name.trim() || !data.address.trim()) return;
+onSave(data);
+}
 
-  return (
-    <div className={`modal-overlay ${hidden ? 'hidden' : ''}`} onClick={(e) => e.target === e.currentTarget && onClose()}>
-      <div className="modal">
-        <div className="modal-handle" />
-        <div className="modal-title">Edit Location</div>
-        <LocationFields data={data} onChange={setData} />
-        <div className="modal-footer">
-          <button className="modal-cancel" onClick={onClose}>Cancel</button>
-          <button className="modal-save" onClick={handleSave}>Save Changes</button>
-        </div>
-      </div>
-    </div>
-  );
+return (
+<div className={`modal-overlay ${!loc?'hidden':''}`} onClick={e => e.target===e.currentTarget && onClose()}>
+<div className="modal">
+<div className="modal-handle" />
+<div className="modal-title">Edit Location</div>
+<LocationFields data={data} onChange={setData} />
+<div className="modal-footer">
+<button className="modal-cancel" onClick={onClose}>Cancel</button>
+<button className="modal-save" onClick={handleSave}>Save Changes</button>
+</div>
+</div>
+</div>
+);
 }
 
 // ── Stop Card (Today) ────────────────────────────────────────────────────────
 function StopCard({ loc, selected, onToggle }) {
-  const visitLine = loc.lastVisit
-    ? `Visited ${fmtDate(loc.lastVisit)}${loc.visitCount > 1 ? ` · ${loc.visitCount}x` : ''}`
-    : 'Never visited';
-
-  return (
-    <div
-      className={`stop-card ${selected ? 'selected' : ''} ${loc.priority ? 'priority' : ''}`}
-      onClick={() => onToggle(loc.id)}
-    >
-      <div className="stop-check">{selected ? '✓' : ''}</div>
-      <div className="stop-body">
-        <div className="stop-name-row">
-          {loc.priority && <span>⭐</span>}
-          <div className="stop-name">{loc.name}</div>
-        </div>
-        <div className="stop-addr">{loc.address}</div>
-        {loc.contact && <div className="stop-contact-line">👤 {loc.contact}</div>}
-        {loc.notes && <div className="stop-notes-line">📝 {loc.notes}</div>}
-        <div className="stop-meta">
-          <Tag cat={loc.category} />
-          {loc.day && loc.day !== 'none' && (
-            <span className={`day-tag ${DAY_COLORS[loc.day] || 'day-none'}`}>
-              {DAYS_OF_WEEK.find(d => d.key === loc.day)?.label}
-            </span>
-          )}
-          <span className="stop-visited">{visitLine}</span>
-        </div>
-      </div>
-      <div className="stop-actions">
-        {(loc.phone || loc.phone2) && (
-          <div className="contact-btns">
-            {loc.phone && <a className="icon-btn" href={`tel:${cleanPhone(loc.phone)}`} onClick={(e) => e.stopPropagation()} title={`Call ${loc.phone}`}>📞</a>}
-            {loc.phone && <a className="icon-btn" href={`sms:${cleanPhone(loc.phone)}`} onClick={(e) => e.stopPropagation()} title={`Text ${loc.phone}`}>💬</a>}
-            {loc.phone2 && <a className="icon-btn" href={`tel:${cleanPhone(loc.phone2)}`} onClick={(e) => e.stopPropagation()} title={`Call ${loc.phone2}`}>📞₂</a>}
-            {loc.phone2 && <a className="icon-btn" href={`sms:${cleanPhone(loc.phone2)}`} onClick={(e) => e.stopPropagation()} title={`Text ${loc.phone2}`}>💬₂</a>}
-          </div>
-        )}
-
-      </div>
-    </div>
-  );
+const visitLine = loc.lastVisit
+? `Visited ${fmtDate(loc.lastVisit)}${loc.visitCount>1?` · ${loc.visitCount}x`:''}`
+: ‘Never visited’;
+return (
+<div className={`stop-card ${selected?'selected':''} ${loc.priority?'priority':''}`} onClick={() => onToggle(loc.id)}>
+<div className="stop-check">{selected?‘✓’:’’}</div>
+<div className="stop-body">
+<div className="stop-name-row">
+{loc.priority && <span>⭐</span>}
+<div className="stop-name">{loc.name}</div>
+</div>
+<div className="stop-addr">{loc.address}</div>
+{loc.contact && <div className="stop-contact-line">👤 {loc.contact}</div>}
+{loc.notes && <div className="stop-notes-line">📝 {loc.notes}</div>}
+<div className="stop-meta">
+<Tag cat={loc.category} />
+<DayTag day={loc.day} />
+<span className="stop-visited">{visitLine}</span>
+</div>
+</div>
+<div className="stop-actions">
+{(loc.phone||loc.phone2) && (
+<div className="contact-btns">
+{loc.phone && <a className=“icon-btn” href={`tel:${cleanPhone(loc.phone)}`} onClick={e=>e.stopPropagation()} title={`Call ${loc.phone}`}>📞</a>}
+{loc.phone && <a className=“icon-btn” href={`sms:${cleanPhone(loc.phone)}`} onClick={e=>e.stopPropagation()} title={`Text ${loc.phone}`}>💬</a>}
+{loc.phone2 && <a className=“icon-btn” href={`tel:${cleanPhone(loc.phone2)}`} onClick={e=>e.stopPropagation()} title={`Call ${loc.phone2}`}>📞₂</a>}
+{loc.phone2 && <a className=“icon-btn” href={`sms:${cleanPhone(loc.phone2)}`} onClick={e=>e.stopPropagation()} title={`Text ${loc.phone2}`}>💬₂</a>}
+</div>
+)}
+</div>
+</div>
+);
 }
 
 // ── Saved Card (Manage) ──────────────────────────────────────────────────────
-function SavedCard({ loc, index, onEdit, onDelete }) {
-  return (
-    <div className={`saved-card ${loc.priority ? 'priority-card' : ''}`}>
-      <div className="saved-card-top">
-        <div className="saved-num">{String(index+1).padStart(2,'0')}</div>
-        <div className="saved-info">
-          <div className="saved-name-row">
-            {loc.priority && <span>⭐</span>}
-            <div className="saved-name">{loc.name}</div>
-          </div>
-          <div className="saved-addr">{loc.address}</div>
-          {loc.contact && (
-            <div className="saved-contact">
-              👤 {loc.contact}
-              {loc.phone && (
-                <> {' · '}
-                  <a href={`tel:${cleanPhone(loc.phone)}`} style={{color:'var(--accent)',textDecoration:'none'}}>📞</a>{' '}
-                  <a href={`sms:${cleanPhone(loc.phone)}`} style={{color:'var(--accent)',textDecoration:'none'}}>💬</a>{' '}
-                  {loc.phone}
-                </>
-              )}
-              {loc.phone2 && (
-                <> {' · '}
-                  <a href={`tel:${cleanPhone(loc.phone2)}`} style={{color:'var(--accent)',textDecoration:'none'}}>📞</a>{' '}
-                  <a href={`sms:${cleanPhone(loc.phone2)}`} style={{color:'var(--accent)',textDecoration:'none'}}>💬</a>{' '}
-                  {loc.phone2}
-                </>
-              )}
-            </div>
-          )}
-          {loc.notes && <div className="saved-notes">📝 {loc.notes}</div>}
-          {loc.day && loc.day !== 'none' && (
-            <span className={`day-tag ${DAY_COLORS[loc.day] || 'day-none'}`} style={{display:'inline-block',marginTop:'4px'}}>
-              {DAYS_OF_WEEK.find(d => d.key === loc.day)?.label}
-            </span>
-          )}
-        </div>
-        <div className="saved-btns">
-          <Tag cat={loc.category} />
-          <button className="edit-btn" onClick={() => onEdit(loc)}>Edit</button>
-          <button className="delete-btn" onClick={() => onDelete(loc.id)}>×</button>
-        </div>
-      </div>
-      <div className="saved-footer">
-        <span className="visit-stat">🗓 {loc.lastVisit ? `Last: ${fmtDate(loc.lastVisit)}` : 'Never visited'}</span>
-        <span className="visit-stat">· {loc.visitCount || 0} visit{(loc.visitCount||0) !== 1 ? 's' : ''}</span>
-      </div>
-    </div>
-  );
+function SavedCard({ loc, index, onEdit, onDelete, onToggleInactive }) {
+return (
+<div className={`saved-card ${loc.priority?'priority-card':''} ${loc.inactive?'inactive-card':''}`}>
+<div className="saved-card-top">
+<div className="saved-num">{String(index+1).padStart(2,‘0’)}</div>
+<div className="saved-info">
+<div className="saved-name-row">
+{loc.priority && <span>⭐</span>}
+<div className="saved-name">{loc.name}</div>
+</div>
+<div className="saved-addr">{loc.address}</div>
+{loc.contact && (
+<div className="saved-contact">
+👤 {loc.contact}
+{loc.phone && (
+<>{’ · ‘}
+<a href={`tel:${cleanPhone(loc.phone)}`} style={{color:‘var(–accent)’,textDecoration:‘none’}}>📞</a>{’ ‘}
+<a href={`sms:${cleanPhone(loc.phone)}`} style={{color:‘var(–accent)’,textDecoration:‘none’}}>💬</a>{’ ‘}
+{loc.phone}
+</>
+)}
+{loc.phone2 && (
+<>{’ · ‘}
+<a href={`tel:${cleanPhone(loc.phone2)}`} style={{color:‘var(–accent)’,textDecoration:‘none’}}>📞</a>{’ ‘}
+<a href={`sms:${cleanPhone(loc.phone2)}`} style={{color:‘var(–accent)’,textDecoration:‘none’}}>💬</a>{’ ‘}
+{loc.phone2}
+</>
+)}
+</div>
+)}
+{loc.notes && <div className="saved-notes">📝 {loc.notes}</div>}
+{loc.day && loc.day !== ‘none’ && (
+<div style={{marginTop:‘4px’}}>
+<DayTag day={loc.day} />
+</div>
+)}
+</div>
+<div className="saved-btns">
+<Tag cat={loc.category} />
+<button className=“edit-btn” onClick={() => onEdit(loc)}>Edit</button>
+{loc.inactive
+? <button className=“restore-btn” onClick={() => onToggleInactive(loc.id)}>Restore</button>
+: <button className=“deactivate-btn” onClick={() => onToggleInactive(loc.id)}>Deactivate</button>
+}
+<button className=“delete-btn” onClick={() => onDelete(loc.id)}>×</button>
+</div>
+</div>
+<div className="saved-footer">
+<span className="visit-stat">🗓 {loc.lastVisit?`Last: ${fmtDate(loc.lastVisit)}`:‘Never visited’}</span>
+<span className="visit-stat">· {loc.visitCount||0} visit{(loc.visitCount||0)!==1?‘s’:’’}</span>
+</div>
+</div>
+);
 }
 
 // ── Main App ─────────────────────────────────────────────────────────────────
 function App() {
-  const [locations, setLocations]   = useState(() => JSON.parse(localStorage.getItem('rg_locations') || '[]'));
-  const [selected, setSelected]     = useState(() => new Set(JSON.parse(localStorage.getItem('rg_selected') || '[]')));
-  const [tab, setTab]               = useState('today');
-  const [filter, setFilter]         = useState('');
-  const [startAddr, setStartAddr]   = useState('');
-  const [showTip, setShowTip]       = useState(false);
-  const [editLoc, setEditLoc]       = useState(null);
-  const [newData, setNewData]       = useState({ ...BLANK_LOC });
-  const [manageFilter, setManageFilter] = useState('');
-  const [apiKey, setApiKey]         = useState(() => localStorage.getItem('rg_apikey') || '');
-  const [binId, setBinId]           = useState(() => localStorage.getItem('rg_binid') || '');
-  const [apiKeyInput, setApiKeyInput] = useState('');
-  const [binIdInput, setBinIdInput]   = useState('');
-  const [syncing, setSyncing]       = useState(false);
-  const [syncStatus, setSyncStatusText] = useState('');
-  const [syncError, setSyncError]   = useState(false);
-  const [toast, setToast]           = useState({ msg:'', type:'success', visible:false });
-  const toastTimer = useRef(null);
+const [locations, setLocations]     = useState(() => JSON.parse(localStorage.getItem(‘rg_locations’)||’[]’));
+const [selected, setSelected]       = useState(() => new Set(JSON.parse(localStorage.getItem(‘rg_selected’)||’[]’)));
+const [tab, setTab]                 = useState(‘today’);
+const [filter, setFilter]           = useState(’’);
+const [manageFilter, setManageFilter] = useState(’’);
+const [showInactive, setShowInactive] = useState(false);
+const [startAddr, setStartAddr]     = useState(’’);
+const [showTip, setShowTip]         = useState(false);
+const [editLoc, setEditLoc]         = useState(null);
+const [newData, setNewData]         = useState({…BLANK_LOC});
+const [apiKey, setApiKey]           = useState(() => localStorage.getItem(‘rg_apikey’)||’’);
+const [binId, setBinId]             = useState(() => localStorage.getItem(‘rg_binid’)||’’);
+const [apiKeyInput, setApiKeyInput] = useState(’’);
+const [binIdInput, setBinIdInput]   = useState(’’);
+const [syncing, setSyncing]         = useState(false);
+const [syncStatus, setSyncStatusText] = useState(’’);
+const [syncError, setSyncError]     = useState(false);
+const [toast, setToast]             = useState({msg:’’,type:‘success’,visible:false});
+const toastTimer = useRef(null);
 
-  // ── Persist locally ────────────────────────────────────────────────────────
-  useEffect(() => {
-    localStorage.setItem('rg_locations', JSON.stringify(locations));
-  }, [locations]);
-  useEffect(() => {
-    localStorage.setItem('rg_selected', JSON.stringify([...selected]));
-  }, [selected]);
+useEffect(() => { localStorage.setItem(‘rg_locations’, JSON.stringify(locations)); }, [locations]);
+useEffect(() => { localStorage.setItem(‘rg_selected’, JSON.stringify([…selected])); }, [selected]);
 
-  // ── Toast ──────────────────────────────────────────────────────────────────
-  const showToast = useCallback((msg, type = 'success') => {
-    clearTimeout(toastTimer.current);
-    setToast({ msg, type, visible: true });
-    toastTimer.current = setTimeout(() => setToast(t => ({ ...t, visible: false })), 2500);
-  }, []);
+const showToast = useCallback((msg, type=‘success’) => {
+clearTimeout(toastTimer.current);
+setToast({msg, type, visible:true});
+toastTimer.current = setTimeout(() => setToast(t=>({…t,visible:false})), 2500);
+}, []);
 
-  // ── Sync status ────────────────────────────────────────────────────────────
-  function setStatus(msg, isError = false) {
-    setSyncStatusText(msg);
-    setSyncError(isError);
-  }
+function setStatus(msg, isError=false) { setSyncStatusText(msg); setSyncError(isError); }
 
-  // ── Cloud push ─────────────────────────────────────────────────────────────
-  async function pushCloud(locs, key, bid) {
-    if (!key) return bid;
-    try {
-      if (!bid) {
-        const res = await fetch(`${JSONBIN_BASE}/b`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-Master-Key': key, 'X-Bin-Name': 'RouteGO' },
-          body: JSON.stringify({ locations: locs })
-        });
-        if (!res.ok) throw new Error(res.status);
-        const data = await res.json();
-        const newBinId = data.metadata.id;
-        localStorage.setItem('rg_binid', newBinId);
-        setBinId(newBinId);
-        setStatus(`Bin ID: ${newBinId} (use on 2nd phone)`);
-        return newBinId;
-      } else {
-        const res = await fetch(`${JSONBIN_BASE}/b/${bid}`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json', 'X-Master-Key': key },
-          body: JSON.stringify({ locations: locs })
-        });
-        if (!res.ok) throw new Error(res.status);
-        setStatus(`Synced ${fmtTime(new Date())}`);
-        return bid;
-      }
-    } catch(e) {
-      setStatus('Sync failed — check API key', true);
-      return bid;
-    }
-  }
-
-  // ── Cloud pull ─────────────────────────────────────────────────────────────
-  async function pullCloud(key, bid, silent = false) {
-    if (!key || !bid) return false;
-    setSyncing(true);
-    try {
-      const res = await fetch(`${JSONBIN_BASE}/b/${bid}/latest`, {
-        headers: { 'X-Master-Key': key }
-      });
-      if (!res.ok) throw new Error(res.status);
-      const data = await res.json();
-      const remote = data.record.locations || [];
-      setLocations(remote);
-      localStorage.setItem('rg_locations', JSON.stringify(remote));
-      setStatus(`Synced ${fmtTime(new Date())}`);
-      if (!silent) showToast('Locations synced ✓');
-      return true;
-    } catch(e) {
-      setStatus('Sync failed — check API key', true);
-      if (!silent) showToast('Sync failed', 'error');
-      return false;
-    } finally {
-      setSyncing(false);
-    }
-  }
-
-  // ── Init sync ──────────────────────────────────────────────────────────────
-  useEffect(() => {
-    if (apiKey && binId) {
-      pullCloud(apiKey, binId, true);
-    } else if (!apiKey) {
-      setStatus('Not connected — enter API key above');
-    }
-    // Hide toast when app regains focus (returning from Maps)
-    const handleFocus = () => setToast(t => ({ ...t, visible: false }));
-    window.addEventListener('focus', handleFocus);
-    document.addEventListener('visibilitychange', () => {
-      if (document.visibilityState === 'visible') setToast(t => ({ ...t, visible: false }));
-    });
-    return () => window.removeEventListener('focus', handleFocus);
-  }, []);
-
-  // ── Save + sync ────────────────────────────────────────────────────────────
-  async function saveAndSync(newLocs) {
-    setLocations(newLocs);
-    localStorage.setItem('rg_locations', JSON.stringify(newLocs));
-    await pushCloud(newLocs, apiKey, binId);
-  }
-
-  // ── Connect ────────────────────────────────────────────────────────────────
-  async function handleConnect() {
-    const key = apiKeyInput.trim();
-    if (!key) { showToast('Please enter an API key', 'error'); return; }
-    const newBid = binIdInput.trim();
-    localStorage.setItem('rg_apikey', key);
-    setApiKey(key);
-    if (newBid) {
-      localStorage.setItem('rg_binid', newBid);
-      setBinId(newBid);
-    }
-    showToast('Connecting...');
-    const pulled = await pullCloud(key, newBid || binId, true);
-    if (!pulled) {
-      await pushCloud(locations, key, newBid || binId);
-    }
-  }
-
-  // ── Reset ──────────────────────────────────────────────────────────────────
-  function handleReset() {
-    if (!confirm('Reset sync credentials? Your cloud data is NOT deleted.')) return;
-    setApiKey(''); setBinId('');
-    localStorage.removeItem('rg_apikey');
-    localStorage.removeItem('rg_binid');
-    setStatus('Not connected — enter API key above');
-    showToast('Credentials cleared');
-  }
-
-  // ── Location ops ───────────────────────────────────────────────────────────
-  async function addLocation() {
-    if (!newData.name.trim() || !newData.address.trim()) { showToast('Name and address required', 'error'); return; }
-    const loc = { ...newData, id: Date.now().toString(), visitCount: 0, lastVisit: null };
-    const next = [...locations, loc];
-    await saveAndSync(next);
-    setNewData({ name:'', address:'', contact:'', phone:'', phone2:'', category:'facility', notes:'', priority:false, day:'none' });
-    showToast(`${loc.name} added!`);
-  }
-
-  async function deleteLocation(id) {
-    if (!confirm('Remove this location?')) return;
-    const next = locations.filter(l => l.id !== id);
-    setSelected(s => { const ns = new Set(s); ns.delete(id); return ns; });
-    await saveAndSync(next);
-    showToast('Location removed');
-  }
-
-  async function saveEdit(data) {
-    const updated = { ...data, day: data.day || 'none' };
-    const next = locations.map(l => l.id === updated.id ? { ...l, ...updated } : l);
-    setEditLoc(null); // close modal immediately before async completes
-    showToast(`${updated.name} updated!`);
-    await saveAndSync(next);
-  }
-
-  async function logVisit(id) {
-    const next = locations.map(l => l.id === id
-      ? { ...l, lastVisit: new Date().toISOString(), visitCount: (l.visitCount || 0) + 1 }
-      : l
-    );
-    await saveAndSync(next);
-    const loc = locations.find(l => l.id === id);
-    showToast(`Visit logged for ${loc?.name}`);
-  }
-
-  // ── Selection ──────────────────────────────────────────────────────────────
-  function toggleStop(id) { setSelected(s => { const ns = new Set(s); ns.has(id) ? ns.delete(id) : ns.add(id); return ns; }); }
-  function selectAll()      { setSelected(new Set(locations.map(l => l.id))); }
-  function clearAll()       { setSelected(new Set()); }
-  function selectPriority() { setSelected(new Set(locations.filter(l => l.priority).map(l => l.id))); }
-
-  // ── Launch route ───────────────────────────────────────────────────────────
-
-
-  function buildAndLaunch(lat, lng) {
-    const stops = sorted.filter(l => selected.has(l.id));
-    const encoded = stops.map(l => encodeURIComponent(l.address));
-    let allStops;
-    if (startAddr) {
-      allStops = [encodeURIComponent(startAddr), ...encoded];
-    } else if (lat && lng) {
-      allStops = [`${lat},${lng}`, ...encoded];
-    } else {
-      allStops = [...encoded]; // Google Maps will use current location automatically
-    }
-    const chromeUrl = `googlechrome://maps.google.com/maps/dir/${allStops.join('/')}`;
-    window.location.href = chromeUrl;
-    showToast(`Opening ${stops.length} stop${stops.length > 1 ? 's' : ''} in Maps`);
-    if (stops.length > 1) setShowTip(true);
-  }
-
-
-
-  function launchRoute() {
-    const stops = sorted.filter(l => selected.has(l.id));
-    if (stops.length === 0) return;
-    if (!startAddr) {
-      // Get real GPS coordinates for accurate starting point
-      if (navigator.geolocation) {
-        showToast('Getting your location...');
-        navigator.geolocation.getCurrentPosition(
-          (pos) => buildAndLaunch(pos.coords.latitude, pos.coords.longitude),
-          ()    => buildAndLaunch(null, null), // permission denied - let Maps figure it out
-          { timeout: 5000, maximumAge: 30000 }
-        );
-      } else {
-        buildAndLaunch(null, null);
-      }
-    } else {
-      buildAndLaunch(null, null);
-    }
-  }
-
-  // ── Derived ────────────────────────────────────────────────────────────────
-  const todayKey = ['sun','mon','tue','wed','thu','fri','sat'][new Date().getDay()];
-  const sorted   = [...locations].sort((a,b) => {
-    const aToday = a.day === todayKey ? 0 : 1;
-    const bToday = b.day === todayKey ? 0 : 1;
-    if (aToday !== bToday) return aToday - bToday;
-    return a.name.localeCompare(b.name);
-  });
-  const filtered = sorted.filter(l =>
-    !filter ||
-    l.name.toLowerCase().includes(filter.toLowerCase()) ||
-    l.address.toLowerCase().includes(filter.toLowerCase()) ||
-    (l.contact||'').toLowerCase().includes(filter.toLowerCase()) ||
-    (l.category||'').toLowerCase().includes(filter.toLowerCase())
-  );
-  const selectedCount = selected.size;
-  const manageSorted = sorted.filter(l =>
-    !manageFilter ||
-    l.name.toLowerCase().includes(manageFilter.toLowerCase()) ||
-    l.address.toLowerCase().includes(manageFilter.toLowerCase()) ||
-    (l.contact||'').toLowerCase().includes(manageFilter.toLowerCase()) ||
-    (l.category||'').toLowerCase().includes(manageFilter.toLowerCase()) ||
-    (l.day||'').toLowerCase().includes(manageFilter.toLowerCase())
-  );
-  const today = new Date();
-  const dateStr = `${DAYS[today.getDay()]} ${MONTHS[today.getMonth()]} ${today.getDate()}`;
-
-  // ── Render ─────────────────────────────────────────────────────────────────
-  return (
-    <>
-      {/* Header */}
-      <div className="header">
-        <div className="header-top">
-          <div className="app-title">Route<span>GO</span></div>
-          <div className="header-right">
-            <button className={`sync-btn ${syncing ? 'syncing' : ''}`} onClick={() => pullCloud(apiKey, binId, false)}>
-              <span className={`spin ${syncing ? 'active' : ''}`}>↻</span> Sync
-            </button>
-            <button className="reset-btn" onClick={handleReset} title="Reset sync credentials">⚙️</button>
-            <div className="date-badge">{dateStr}</div>
-          </div>
-        </div>
-        <div className={`sync-status ${syncError ? 'error' : ''}`}>{syncStatus}</div>
-      </div>
-
-      {/* Tabs */}
-      <div className="tabs">
-        <button className={`tab ${tab==='today'?'active':''}`} onClick={() => { setTab('today'); setToast(t=>({...t,visible:false})); }}>Today's Route</button>
-        <button className={`tab ${tab==='manage'?'active':''}`} onClick={() => { setTab('manage'); setToast(t=>({...t,visible:false})); }}>Manage Locations</button>
-      </div>
-
-      {/* Today Panel */}
-      {tab === 'today' && (
-        <div className="panel">
-          {!apiKey && (
-            <div className="setup-banner">
-              <div className="setup-banner-title">☁️ Connect Cloud Sync</div>
-              <div className="setup-banner-sub">
-                Enter your JSONBin <strong>Master Key</strong> to sync across both phones.
-                Get one free at <strong>jsonbin.io</strong> → API Keys → Master Key.
-                On your 2nd phone, also enter the Bin ID shown after connecting the first.
-              </div>
-              <div className="setup-row">
-                <input className="setup-input" value={apiKeyInput} onChange={e => setApiKeyInput(e.target.value)} placeholder="Master Key: $2b$10$..." />
-              </div>
-              <div className="setup-row">
-                <input className="setup-input" value={binIdInput} onChange={e => setBinIdInput(e.target.value)} placeholder="Bin ID (2nd phone only)" />
-                <button className="setup-save-btn" onClick={handleConnect}>Connect</button>
-              </div>
-            </div>
-          )}
-
-          <div className="route-summary">
-            <div>
-              <div className="route-summary-label">Stops selected</div>
-              <div className="route-summary-count">{selectedCount} <span>stop{selectedCount !== 1 ? 's' : ''}</span></div>
-            </div>
-            <div className="start-right">
-              <div className="start-right-label">Start from</div>
-              <div className="start-right-val">{startAddr || 'Current location'}</div>
-            </div>
-          </div>
-
-          <div className="start-row">
-            <div className="field-label">Starting address (optional)</div>
-            <input className="text-input" value={startAddr} onChange={e => setStartAddr(e.target.value)} placeholder="Leave blank to use current location" />
-          </div>
-
-          <div className="select-actions">
-            <button className="select-btn" onClick={selectAll}>Select All</button>
-            <button className="select-btn" onClick={selectPriority}>⭐ Priority</button>
-            <button className="select-btn" onClick={clearAll}>Clear All</button>
-          </div>
-
-          <input className="search-input" value={filter} onChange={e => setFilter(e.target.value)} placeholder="🔍 Filter locations..." />
-
-          <div className="stop-list">
-            {locations.length === 0 ? (
-              <div className="empty-state">
-                <div className="empty-icon">📍</div>
-                <div className="empty-title">No locations saved yet</div>
-                <div className="empty-sub">Go to <strong>Manage Locations</strong> to add your facilities and clients.</div>
-              </div>
-            ) : filtered.length === 0 ? (
-              <div className="empty-state">
-                <div className="empty-icon">🔍</div>
-                <div className="empty-title">No matches</div>
-                <div className="empty-sub">Try a different search term.</div>
-              </div>
-            ) : filtered.map(loc => (
-              <StopCard
-                key={loc.id}
-                loc={loc}
-                selected={selected.has(loc.id)}
-                onToggle={toggleStop}
-              />
-            ))}
-          </div>
-
-
-
-          {showTip && (
-            <div className="optimize-tip">
-              <span className="optimize-tip-icon">💡</span>
-              <div>
-                <div className="optimize-tip-title">Optimize your route in Maps</div>
-                <div className="optimize-tip-sub">Once Maps opens, tap <strong>⋯</strong> then <strong>Optimize route</strong> to eliminate backtracking.</div>
-              </div>
-              <button className="tip-close" onClick={() => setShowTip(false)}>×</button>
-            </div>
-          )}
-        </div>
-      )}
-
-      {/* Manage Panel */}
-      {tab === 'manage' && (
-        <div className="panel">
-          <div className="section-label">Add New Location</div>
-          <div className="add-form">
-            <LocationFields data={newData} onChange={setNewData} />
-            <button className="add-btn" onClick={addLocation}>+ Add Location</button>
-          </div>
-
-          <div className="divider">Saved Locations</div>
-          <input
-            className="search-input"
-            value={manageFilter}
-            onChange={e => setManageFilter(e.target.value)}
-            placeholder="🔍 Search saved locations..."
-          />
-          <div className="saved-list">
-            {locations.length === 0 ? (
-              <div className="empty-state">
-                <div className="empty-icon">🏥</div>
-                <div className="empty-title">No locations yet</div>
-                <div className="empty-sub">Add your facilities, clients, and regular stops above.</div>
-              </div>
-            ) : manageSorted.length === 0 ? (
-              <div className="empty-state">
-                <div className="empty-icon">🔍</div>
-                <div className="empty-title">No matches</div>
-                <div className="empty-sub">Try a different search term.</div>
-              </div>
-            ) : manageSorted.map((loc, i) => (
-              <SavedCard
-                key={loc.id}
-                loc={loc}
-                index={i}
-                onEdit={setEditLoc}
-                onDelete={deleteLocation}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Floating Action Button — Today tab only */}
-      {tab === 'today' && (
-        <button className={`fab ${selectedCount === 0 ? 'hidden' : ''}`} onClick={launchRoute} style={{background:'#b84000',color:'#ffffff'}}>
-          <span>🗺</span>
-          <span>Open in Maps</span>
-          <span className="fab-badge">{selectedCount}</span>
-        </button>
-      )}
-
-      {/* Edit Modal */}
-      <EditModal loc={editLoc} onSave={saveEdit} onClose={() => setEditLoc(null)} />
-
-      {/* Toast */}
-      <Toast message={toast.msg} type={toast.type} visible={toast.visible} />
-    </>
-  );
+async function pushCloud(locs, key, bid) {
+if (!key) return bid;
+try {
+if (!bid) {
+const res = await fetch(`${JSONBIN_BASE}/b`, {
+method:‘POST’,
+headers:{‘Content-Type’:‘application/json’,‘X-Master-Key’:key,‘X-Bin-Name’:‘RouteGO’},
+body: JSON.stringify({locations:locs})
+});
+if (!res.ok) throw new Error(res.status);
+const data = await res.json();
+const newBid = data.metadata.id;
+localStorage.setItem(‘rg_binid’, newBid);
+setBinId(newBid);
+setStatus(`Bin ID: ${newBid} (use on 2nd phone)`);
+return newBid;
+} else {
+const res = await fetch(`${JSONBIN_BASE}/b/${bid}`, {
+method:‘PUT’,
+headers:{‘Content-Type’:‘application/json’,‘X-Master-Key’:key},
+body: JSON.stringify({locations:locs})
+});
+if (!res.ok) throw new Error(res.status);
+setStatus(`Synced ${fmtTime(new Date())}`);
+return bid;
+}
+} catch(e) {
+setStatus(‘Sync failed — check API key’, true);
+return bid;
+}
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+async function pullCloud(key, bid, silent=false) {
+if (!key||!bid) return false;
+setSyncing(true);
+try {
+const res = await fetch(`${JSONBIN_BASE}/b/${bid}/latest`, {headers:{‘X-Master-Key’:key}});
+if (!res.ok) throw new Error(res.status);
+const data = await res.json();
+const remote = data.record.locations||[];
+setLocations(remote);
+localStorage.setItem(‘rg_locations’, JSON.stringify(remote));
+setStatus(`Synced ${fmtTime(new Date())}`);
+if (!silent) showToast(‘Locations synced ✓’);
+return true;
+} catch(e) {
+setStatus(‘Sync failed — check API key’, true);
+if (!silent) showToast(‘Sync failed’,‘error’);
+return false;
+} finally { setSyncing(false); }
+}
+
+useEffect(() => {
+if (apiKey && binId) pullCloud(apiKey, binId, true);
+else if (!apiKey) setStatus(‘Not connected — enter API key above’);
+const hide = () => setToast(t=>({…t,visible:false}));
+window.addEventListener(‘focus’, hide);
+document.addEventListener(‘visibilitychange’, () => { if (document.visibilityState===‘visible’) hide(); });
+return () => window.removeEventListener(‘focus’, hide);
+}, []);
+
+async function saveAndSync(newLocs) {
+setLocations(newLocs);
+localStorage.setItem(‘rg_locations’, JSON.stringify(newLocs));
+await pushCloud(newLocs, apiKey, binId);
+}
+
+async function handleConnect() {
+const key = apiKeyInput.trim();
+if (!key) { showToast(‘Please enter an API key’,‘error’); return; }
+const newBid = binIdInput.trim();
+localStorage.setItem(‘rg_apikey’, key); setApiKey(key);
+if (newBid) { localStorage.setItem(‘rg_binid’, newBid); setBinId(newBid); }
+showToast(‘Connecting…’);
+const pulled = await pullCloud(key, newBid||binId, true);
+if (!pulled) await pushCloud(locations, key, newBid||binId);
+}
+
+function handleReset() {
+if (!confirm(‘Reset sync credentials? Your cloud data is NOT deleted.’)) return;
+setApiKey(’’); setBinId(’’);
+localStorage.removeItem(‘rg_apikey’); localStorage.removeItem(‘rg_binid’);
+setStatus(‘Not connected — enter API key above’);
+showToast(‘Credentials cleared’);
+}
+
+async function addLocation() {
+if (!newData.name.trim()||!newData.address.trim()) { showToast(‘Name and address required’,‘error’); return; }
+const loc = {…newData, id:Date.now().toString(), visitCount:0, lastVisit:null};
+await saveAndSync([…locations, loc]);
+setNewData({…BLANK_LOC});
+showToast(`${loc.name} added!`);
+}
+
+async function deleteLocation(id) {
+if (!confirm(‘Remove this location?’)) return;
+setSelected(s => { const ns=new Set(s); ns.delete(id); return ns; });
+await saveAndSync(locations.filter(l=>l.id!==id));
+showToast(‘Location removed’);
+}
+
+async function toggleInactive(id) {
+const loc = locations.find(l=>l.id===id);
+if (!loc) return;
+const wasInactive = loc.inactive;
+await saveAndSync(locations.map(l=>l.id===id?{…l,inactive:!l.inactive}:l));
+showToast(wasInactive ? `${loc.name} restored!` : `${loc.name} set to inactive`);
+}
+
+async function saveEdit(data) {
+const updated = {…data, day:data.day||‘none’};
+setEditLoc(null);
+showToast(`${updated.name} updated!`);
+await saveAndSync(locations.map(l=>l.id===updated.id?{…l,…updated}:l));
+}
+
+function toggleStop(id) { setSelected(s=>{const ns=new Set(s); ns.has(id)?ns.delete(id):ns.add(id); return ns;}); }
+function selectAll() { setSelected(new Set(activeLocations.map(l=>l.id))); }
+function clearAll() { setSelected(new Set()); }
+function selectPriority() { setSelected(new Set(activeLocations.filter(l=>l.priority).map(l=>l.id))); }
+function updateStartLabel() {}
+
+function buildAndLaunch(lat, lng) {
+const stops = sorted.filter(l=>selected.has(l.id));
+const encoded = stops.map(l=>encodeURIComponent(l.address));
+let allStops;
+if (startAddr) allStops = [encodeURIComponent(startAddr), …encoded];
+else if (lat&&lng) allStops = [`${lat},${lng}`, …encoded];
+else allStops = […encoded];
+const chromeUrl = `googlechrome://maps.google.com/maps/dir/${allStops.join('/')}`;
+window.location.href = chromeUrl;
+showToast(`Opening ${stops.length} stop${stops.length>1?'s':''} in Maps`);
+if (stops.length>1) setShowTip(true);
+}
+
+function launchRoute() {
+const stops = sorted.filter(l=>selected.has(l.id));
+if (stops.length===0) return;
+if (!startAddr && navigator.geolocation) {
+showToast(‘Getting your location…’);
+navigator.geolocation.getCurrentPosition(
+pos => buildAndLaunch(pos.coords.latitude, pos.coords.longitude),
+()  => buildAndLaunch(null, null),
+{timeout:5000, maximumAge:30000}
+);
+} else {
+buildAndLaunch(null, null);
+}
+}
+
+// ── Derived ────────────────────────────────────────────────────────────────
+const todayKey = [‘sun’,‘mon’,‘tue’,‘wed’,‘thu’,‘fri’,‘sat’][new Date().getDay()];
+const allSorted = […locations].sort((a,b) => {
+const aToday = a.day===todayKey?0:1;
+const bToday = b.day===todayKey?0:1;
+if (aToday!==bToday) return aToday-bToday;
+return a.name.localeCompare(b.name);
+});
+const activeLocations   = allSorted.filter(l=>!l.inactive);
+const inactiveLocations = allSorted.filter(l=>l.inactive);
+const sorted = activeLocations;
+
+const filtered = sorted.filter(l =>
+!filter ||
+l.name.toLowerCase().includes(filter.toLowerCase()) ||
+l.address.toLowerCase().includes(filter.toLowerCase()) ||
+(l.contact||’’).toLowerCase().includes(filter.toLowerCase()) ||
+(l.category||’’).toLowerCase().includes(filter.toLowerCase())
+);
+
+const manageSorted = activeLocations.filter(l =>
+!manageFilter ||
+l.name.toLowerCase().includes(manageFilter.toLowerCase()) ||
+l.address.toLowerCase().includes(manageFilter.toLowerCase()) ||
+(l.contact||’’).toLowerCase().includes(manageFilter.toLowerCase()) ||
+(l.category||’’).toLowerCase().includes(manageFilter.toLowerCase()) ||
+(l.day||’’).toLowerCase().includes(manageFilter.toLowerCase())
+);
+
+const inactiveFiltered = inactiveLocations.filter(l =>
+!manageFilter ||
+l.name.toLowerCase().includes(manageFilter.toLowerCase()) ||
+l.address.toLowerCase().includes(manageFilter.toLowerCase()) ||
+(l.contact||’’).toLowerCase().includes(manageFilter.toLowerCase())
+);
+
+const selectedCount = selected.size;
+const today = new Date();
+const dateStr = `${DAYS[today.getDay()]} ${MONTHS[today.getMonth()]} ${today.getDate()}`;
+
+return (
+<>
+<div className="header">
+<div className="header-top">
+<div className="app-title">Route<span>GO</span></div>
+<div className="header-right">
+<button className={`sync-btn ${syncing?'syncing':''}`} onClick={() => pullCloud(apiKey,binId,false)}>
+<span className={`spin ${syncing?'active':''}`}>↻</span> Sync
+</button>
+<button className="reset-btn" onClick={handleReset} title="Reset sync credentials">⚙️</button>
+<div className="date-badge">{dateStr}</div>
+</div>
+</div>
+<div className={`sync-status ${syncError?'error':''}`}>{syncStatus}</div>
+</div>
+
+```
+  <div className="tabs">
+    <button className={`tab ${tab==='today'?'active':''}`} onClick={() => { setTab('today'); setToast(t=>({...t,visible:false})); }}>Today's Route</button>
+    <button className={`tab ${tab==='manage'?'active':''}`} onClick={() => { setTab('manage'); setToast(t=>({...t,visible:false})); }}>Manage Locations</button>
+  </div>
+
+  {/* TODAY */}
+  {tab==='today' && (
+    <div className="panel">
+      {!apiKey && (
+        <div className="setup-banner">
+          <div className="setup-banner-title">☁️ Connect Cloud Sync</div>
+          <div className="setup-banner-sub">Enter your JSONBin <strong>Master Key</strong> to sync across both phones. Get one free at <strong>jsonbin.io</strong> → API Keys → Master Key. On your 2nd phone, also enter the Bin ID shown after connecting the first.</div>
+          <div className="setup-row">
+            <input className="setup-input" value={apiKeyInput} onChange={e=>setApiKeyInput(e.target.value)} placeholder="Master Key: $2b$10$..." />
+          </div>
+          <div className="setup-row">
+            <input className="setup-input" value={binIdInput} onChange={e=>setBinIdInput(e.target.value)} placeholder="Bin ID (2nd phone only)" />
+            <button className="setup-save-btn" onClick={handleConnect}>Connect</button>
+          </div>
+        </div>
+      )}
+
+      <div className="route-summary">
+        <div>
+          <div className="route-summary-label">Stops selected</div>
+          <div className="route-summary-count">{selectedCount} <span>stop{selectedCount!==1?'s':''}</span></div>
+        </div>
+        <div className="start-right">
+          <div className="start-right-label">Start from</div>
+          <div className="start-right-val">{startAddr||'Current location'}</div>
+        </div>
+      </div>
+
+      <div className="start-row">
+        <div className="field-label">Starting address (optional)</div>
+        <input className="text-input" value={startAddr} onChange={e=>setStartAddr(e.target.value)} placeholder="Leave blank to use current location" />
+      </div>
+
+      <div className="select-actions">
+        <button className="select-btn" onClick={selectAll}>Select All</button>
+        <button className="select-btn" onClick={selectPriority}>⭐ Priority</button>
+        <button className="select-btn" onClick={clearAll}>Clear All</button>
+      </div>
+
+      <input className="search-input" value={filter} onChange={e=>setFilter(e.target.value)} placeholder="🔍 Filter locations..." />
+
+      <div className="stop-list">
+        {locations.filter(l=>!l.inactive).length===0 ? (
+          <div className="empty-state">
+            <div className="empty-icon">📍</div>
+            <div className="empty-title">No locations saved yet</div>
+            <div className="empty-sub">Go to <strong>Manage Locations</strong> to add your facilities and clients.</div>
+          </div>
+        ) : filtered.length===0 ? (
+          <div className="empty-state">
+            <div className="empty-icon">🔍</div>
+            <div className="empty-title">No matches</div>
+            <div className="empty-sub">Try a different search term.</div>
+          </div>
+        ) : filtered.map(loc => (
+          <StopCard key={loc.id} loc={loc} selected={selected.has(loc.id)} onToggle={toggleStop} />
+        ))}
+      </div>
+
+      {showTip && (
+        <div className="optimize-tip">
+          <span className="optimize-tip-icon">💡</span>
+          <div>
+            <div className="optimize-tip-title">Optimize your route in Maps</div>
+            <div className="optimize-tip-sub">Once Maps opens, tap <strong>⋯</strong> then <strong>Optimize route</strong> to eliminate backtracking.</div>
+          </div>
+          <button className="tip-close" onClick={()=>setShowTip(false)}>×</button>
+        </div>
+      )}
+    </div>
+  )}
+
+  {/* MANAGE */}
+  {tab==='manage' && (
+    <div className="panel">
+      <div className="section-label">Add New Location</div>
+      <div className="add-form">
+        <LocationFields data={newData} onChange={setNewData} />
+        <button className="add-btn" onClick={addLocation}>+ Add Location</button>
+      </div>
+
+      <div className="divider">Saved Locations</div>
+      <input className="search-input" value={manageFilter} onChange={e=>setManageFilter(e.target.value)} placeholder="🔍 Search saved locations..." />
+
+      <div className="saved-list">
+        {locations.filter(l=>!l.inactive).length===0 ? (
+          <div className="empty-state">
+            <div className="empty-icon">🏥</div>
+            <div className="empty-title">No locations yet</div>
+            <div className="empty-sub">Add your facilities, clients, and regular stops above.</div>
+          </div>
+        ) : manageSorted.length===0 && manageFilter ? (
+          <div className="empty-state">
+            <div className="empty-icon">🔍</div>
+            <div className="empty-title">No matches</div>
+            <div className="empty-sub">Try a different search term.</div>
+          </div>
+        ) : manageSorted.map((loc,i) => (
+          <SavedCard key={loc.id} loc={loc} index={i} onEdit={setEditLoc} onDelete={deleteLocation} onToggleInactive={toggleInactive} />
+        ))}
+      </div>
+
+      {inactiveLocations.length>0 && (
+        <div>
+          <div className="inactive-toggle" onClick={()=>setShowInactive(s=>!s)}>
+            <span className="inactive-toggle-label">⏸ Inactive Locations</span>
+            <span className="inactive-count">{inactiveLocations.length}</span>
+          </div>
+          {showInactive && inactiveFiltered.map((loc,i) => (
+            <SavedCard key={loc.id} loc={loc} index={i} onEdit={setEditLoc} onDelete={deleteLocation} onToggleInactive={toggleInactive} />
+          ))}
+        </div>
+      )}
+    </div>
+  )}
+
+  {/* FAB */}
+  {tab==='today' && (
+    <button className={`fab ${selectedCount===0?'hidden':''}`} onClick={launchRoute} style={{background:'#b84000',color:'#ffffff'}}>
+      <span>🗺</span>
+      <span>Open in Maps</span>
+      <span className="fab-badge">{selectedCount}</span>
+    </button>
+  )}
+
+  {/* Edit Modal */}
+  <EditModal loc={editLoc} onSave={saveEdit} onClose={()=>setEditLoc(null)} />
+
+  {/* Toast */}
+  <Toast message={toast.msg} type={toast.type} visible={toast.visible} />
+</>
+```
+
+);
+}
+
+ReactDOM.render(<App />, document.getElementById(‘root’));
 </script>
 
 </body>
