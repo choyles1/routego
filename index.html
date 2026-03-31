@@ -480,6 +480,7 @@ function App() {
   const [showTip, setShowTip]       = useState(false);
   const [editLoc, setEditLoc]       = useState(null);
   const [newData, setNewData]       = useState({ ...BLANK_LOC });
+  const [manageFilter, setManageFilter] = useState('');
   const [apiKey, setApiKey]         = useState(() => localStorage.getItem('rg_apikey') || '');
   const [binId, setBinId]           = useState(() => localStorage.getItem('rg_binid') || '');
   const [apiKeyInput, setApiKeyInput] = useState('');
@@ -720,6 +721,14 @@ function App() {
     (l.category||'').toLowerCase().includes(filter.toLowerCase())
   );
   const selectedCount = selected.size;
+  const manageSorted = sorted.filter(l =>
+    !manageFilter ||
+    l.name.toLowerCase().includes(manageFilter.toLowerCase()) ||
+    l.address.toLowerCase().includes(manageFilter.toLowerCase()) ||
+    (l.contact||'').toLowerCase().includes(manageFilter.toLowerCase()) ||
+    (l.category||'').toLowerCase().includes(manageFilter.toLowerCase()) ||
+    (l.day||'').toLowerCase().includes(manageFilter.toLowerCase())
+  );
   const today = new Date();
   const dateStr = `${DAYS[today.getDay()]} ${MONTHS[today.getMonth()]} ${today.getDate()}`;
 
@@ -840,14 +849,26 @@ function App() {
           </div>
 
           <div className="divider">Saved Locations</div>
+          <input
+            className="search-input"
+            value={manageFilter}
+            onChange={e => setManageFilter(e.target.value)}
+            placeholder="🔍 Search saved locations..."
+          />
           <div className="saved-list">
-            {sorted.length === 0 ? (
+            {locations.length === 0 ? (
               <div className="empty-state">
                 <div className="empty-icon">🏥</div>
                 <div className="empty-title">No locations yet</div>
                 <div className="empty-sub">Add your facilities, clients, and regular stops above.</div>
               </div>
-            ) : sorted.map((loc, i) => (
+            ) : manageSorted.length === 0 ? (
+              <div className="empty-state">
+                <div className="empty-icon">🔍</div>
+                <div className="empty-title">No matches</div>
+                <div className="empty-sub">Try a different search term.</div>
+              </div>
+            ) : manageSorted.map((loc, i) => (
               <SavedCard
                 key={loc.id}
                 loc={loc}
