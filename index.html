@@ -186,7 +186,7 @@
 
 /* Modal */
 .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); z-index: 200; display: flex; align-items: flex-end; justify-content: center; transition: opacity 0.2s; }
-.modal-overlay.hidden { opacity: 0; pointer-events: none; }
+.modal-overlay.hidden { opacity: 0; pointer-events: none; display: none; }
 .modal { background: var(–surface); border-radius: 20px 20px 0 0; padding: 20px 20px 40px; width: 100%; max-width: 480px; transform: translateY(0); transition: transform 0.25s cubic-bezier(.34,1.2,.64,1); max-height: 90vh; overflow-y: auto; }
 .modal-overlay.hidden .modal { transform: translateY(100%); }
 .modal-handle { width: 40px; height: 4px; background: var(–border); border-radius: 2px; margin: 0 auto 16px; }
@@ -641,9 +641,9 @@ function App() {
   async function saveEdit(data) {
     const updated = { ...data, day: data.day || 'none' };
     const next = locations.map(l => l.id === updated.id ? { ...l, ...updated } : l);
-    await saveAndSync(next);
-    setEditLoc(null);
+    setEditLoc(null); // close modal immediately before async completes
     showToast(`${updated.name} updated!`);
+    await saveAndSync(next);
   }
 
   async function logVisit(id) {
